@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StudentProject</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link  rel="stylesheet" href="~/css/Custom.css"/>
+    <link  rel="stylesheet" href="~/css/Custom1.css"/>
+    <link rel="stylesheet" href="~/lib/fontawesome-free-5.13.0-web/css/all.css"/>
+    <link rel="stylesheet" href="~/lib/fontawesome-free-5.13.0-web/css/brands.css"/> 
+    <link rel="icon" href="~/lib/fontawesome-free-5.13.0-web/svgs/brands"/>
+
+    <style>
+    
+        .custom-nav-link{
+            text-decoration: none;
+            margin-left: 20px;
+            color:black;
+        }
+       
+        
+        .custom-nav-link:active {
+            color: #ff6a00 ;
+        }
+
+         .custom-nav-link:hover{
+            text-decoration: none;
+            color: #ff6a00 ;
+        }
+
+        .nav-item
+        .help-icon{
+            margin-left: 10px;
+        }
+
+        .tw-i {
+            width: 25px;
+            height: 25px;
+            padding-top: 10px;
+            color: #ff6a00;
+        }
+
+        .sub-menu-1 {
+            display: none;
+            margin-top: 2px;
+        }
+        .divs:hover .sub-menu-1 {
+            display: block;         
+            margin-bottom: 0;
+            margin-left: -15px;
+        }
+       
+        .sub-nav{
+            visibility:hidden;
+            opacity:0;
+
+        }
+        .sub-nav1:hover .sub-nav {
+            visibility:visible;
+            opacity:3;
+        }
+       
+        .site-navigation ul li a {
+            line-height: 0;
+        }
+        .site-navigation ul li a:hover, .site-navigation ul li.current-menu-item a {
+            border-top: 3px solid #ff6a00;
+            color: #ff4800;
+        }
+       
+        .top-header-bar{
+           
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+    </style>
+    
+</head>
+<body>
+ <!--Header Section-->
+     <header>
+        <div class="top-header-bar">
+            <div class="row ml-4">
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <span><i style="color:black" class="fa fa-envelope tw-i"></i>studentproject@gmail.com</span>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <span> <i style="color:black" class="fa fa-phone tw-i"></i> 08057012064, 08025353643</span>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">       
+                    <span> <img class="tw-i" src="~/lib/fontawesome-free-5.13.0-web/svgs/brands/twitter.svg" /> StudentProject</span>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <span><img class="tw-i" src="~/lib/fontawesome-free-5.13.0-web/svgs/brands/facebook-f.svg" /> StudentProject</span>
+                </div>
+            </div>
+        </div>
+        <div class="nav-bar "style="border-bottom: 3px solid Black;margin-top: 1px;">
+            <nav class="navbar site-nav navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+                <div class="container">
+                        <a class="navbar-brand mr-4" asp-area="" asp-controller="Home" asp-action="Index">StudentProject</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="navbar-collapse custom-nav-div collapse d-sm-inline-flex flex-sm-row-reverse">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class=" nav-item">
+                                    <a class="custom-nav-link " asp-action="ActionName" asp-controller="ControllerName">
+                                        <span class="icons"><i class="fa fa-home" aria-hidden="true"></i></span>
+                                        <span class="link-txt">Home</span>
+                                    </a>
+                                </li>
+                                <li  class="nav-item">
+                                    <a class=" custom-nav-link" asp-action="ActionName" asp-controller="ControllerName">
+                                        <span class="icons"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                        <span class="link-txt">AboutUs</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class=" custom-nav-link" asp-action="ActionName" asp-controller="ControllerName">
+                                        <span class="icons"><i class="fa fa-address-card" aria-hidden="true"></i></span>
+                                        <span class="link-txt">ContactUs</span>
+                                    </a>
+                                </li>
+                                <li  class="nav-item" >
+                                    <a class=" custom-nav-link" asp-action="ActionName" asp-controller="ControllerName">
+                                        <span class="icons"><i class="fa fa-newspaper" aria-hidden="true"></i></span>
+                                        <span class="link-txt">News</span>
+                                    </a>
+                                </li>
+                                 <li  class="nav-item" >
+                                    <a class="custom-nav-link" asp-action="RegisterNewStudent" asp-controller="Employees">
+                                        <span class="icons"><i class="fa fa-newspaper" aria-hidden="true"></i></span>
+                                        <span class="link-txt">RegisterStudent</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>     
+                </div>
+            </nav>
+        </div>
+    </header>
+<!--Header Section-->
+
+<!--moving news-->
+      <div class="sliding-news">
+        <marquee behavior="" direction="">
+            <h6 style="color:#ff6a00;padding-top:5px">Hello world hello world hello world hello worldhello world hello world hello world hello world hello world hello world hello world hello world hello world
+                hello world hello world hello world
+            </h6>
+        </marquee>
+    </div>
+ <!--moving news-->
+
+<!-- carousel section-->
+     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/images/carousel-img1.jpg" style="height:400px" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Images/carousel-img2.jpg" style="height:400px" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Images/carousel-img3.jpg" style="height:400px" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Images/carousel-img4.jpg" style="height:400px" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>    
+    </div>
+<!-- carousel section-->
+
+    <div class="m-4">
+        <div class="row">
+            <div class="col-sm-4">
+
+            </div>
+             <div class="col-sm-8 mb-4">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>     
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - StudentProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/Custom.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
