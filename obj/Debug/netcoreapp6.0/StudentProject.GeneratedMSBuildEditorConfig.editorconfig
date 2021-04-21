@@ -1,0 +1,54 @@
+is_global = true
+build_property.TargetFramework = netcoreapp6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = StudentProject
+build_property.RootNamespace = StudentProject
+build_property.ProjectDir = C:\Users\HI\Documents\StudentProject\
+build_property.RazorLangVersion = 5.0
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\HI\Documents\StudentProject
+build_property._RazorSourceGeneratorDebug = 
+build_property._RazorSourceGeneratorLog = 
+
+[c:/Users/HI/Documents/StudentProject/Views/Employees/RegisterNewStudent.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Views\Employees\RegisterNewStudent.cshtml
+build_metadata.AdditionalFiles.GeneratedOutputFullPath = C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp6.0\Razor\Views\Employees\RegisterNewStudent.cshtml.g.cs
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HI/Documents/StudentProject/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Views\Home\Index.cshtml
+build_metadata.AdditionalFiles.GeneratedOutputFullPath = C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp6.0\Razor\Views\Home\Index.cshtml.g.cs
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HI/Documents/StudentProject/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Views\Home\Privacy.cshtml
+build_metadata.AdditionalFiles.GeneratedOutputFullPath = C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp6.0\Razor\Views\Home\Privacy.cshtml.g.cs
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HI/Documents/StudentProject/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Views\Shared\Error.cshtml
+build_metadata.AdditionalFiles.GeneratedOutputFullPath = C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp6.0\Razor\Views\Shared\Error.cshtml.g.cs
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HI/Documents/StudentProject/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Views\Shared\_Layout.cshtml
+build_metadata.AdditionalFiles.GeneratedOutputFullPath = C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp6.0\Razor\Views\Shared\_Layout.cshtml.g.cs
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HI/Documents/StudentProject/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Views\Shared\_ValidationScriptsPartial.cshtml
+build_metadata.AdditionalFiles.GeneratedOutputFullPath = C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp6.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HI/Documents/StudentProject/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Views\_ViewImports.cshtml
+build_metadata.AdditionalFiles.GeneratedOutputFullPath = C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp6.0\Razor\Views\_ViewImports.cshtml.g.cs
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/HI/Documents/StudentProject/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Views\_ViewStart.cshtml
+build_metadata.AdditionalFiles.GeneratedOutputFullPath = C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp6.0\Razor\Views\_ViewStart.cshtml.g.cs
+build_metadata.AdditionalFiles.CssScope =
