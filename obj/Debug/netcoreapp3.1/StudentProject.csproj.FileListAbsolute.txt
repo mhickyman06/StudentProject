@@ -171,3 +171,5 @@ C:\Users\HI\Documents\StudentProject\bin\Debug\netcoreapp3.1\Microsoft.IdentityM
 C:\Users\HI\Documents\StudentProject\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 C:\Users\HI\Documents\StudentProject\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\Razor\Views\Students\RegisterStudent.cshtml.g.cs
+C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\Razor\Views\Students\GetAllStudents.cshtml.g.cs
+C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\Razor\Views\Students\GetStudentStatus.cshtml.g.cs

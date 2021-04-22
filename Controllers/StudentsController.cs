@@ -12,6 +12,7 @@ using StudentProject.ViewModels;
 
 namespace StudentProject.Controllers
 {
+
     public class StudentsController : Controller
     {
         private readonly ILogger<StudentsController> _logger;
@@ -24,8 +25,8 @@ namespace StudentProject.Controllers
             this._repository = repository;
         }
         
-         
-         [HttpGet]
+       
+        [HttpGet]
          public IActionResult RegisterStudent()
          {
             return View();
@@ -43,10 +44,46 @@ namespace StudentProject.Controllers
            return View(model);
         }
 
+        [HttpGet]
         public IActionResult GetAllStudents()
         {
             var students = _repository.GetAllStudents();
             return View(students);
+        }
+
+        [HttpGet]
+        public IActionResult GetStudentStatus()
+        {
+            return View();
+        }
+
+
+     
+    }
+
+    [Route("api/[controller]")]
+    [ApiController]
+    public class StudentApiController : ControllerBase 
+    {
+        private readonly IStudentRepository _repository;
+
+        public StudentApiController(IStudentRepository repository)
+        {
+            _repository = repository;       
+        }
+
+        [Route("PrintName")]
+        public string PrintName()
+        {
+            return "hello";
+        }
+
+        [HttpPost]
+        [Route("GetStudentStatus")]
+        public IActionResult GetStudentStatus(StudentStatusViewModel model)
+        {
+            var status = _repository.GetStudentStatus(model);
+            return Ok(status);
         }
 
     }

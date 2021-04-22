@@ -99,7 +99,7 @@
         <div class="nav-bar "style="border-bottom: 3px solid Black;margin-top: 1px;">
             <nav class="navbar site-nav navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
                 <div class="container">
-                        <a class="navbar-brand mr-4" asp-area="" asp-controller="Home" asp-action="Index">StudentProject</a>
+                        <a class="navbar-brand mr-4" style="font-variant: petite-caps;" asp-area="" asp-controller="Home" asp-action="Index">StudentProject</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -107,12 +107,12 @@
                         <div class="navbar-collapse custom-nav-div collapse d-sm-inline-flex flex-sm-row-reverse">
                             <ul class="navbar-nav flex-grow-1">
                                 <li class=" nav-item">
-                                    <a class="custom-nav-link " asp-action="ActionName" asp-controller="ControllerName">
+                                    <a class="custom-nav-link " asp-action="Index" asp-controller="Home">
                                         <span class="icons"><i class="fa fa-home" aria-hidden="true"></i></span>
                                         <span class="link-txt">Home</span>
                                     </a>
                                 </li>
-                                <li  class="nav-item">
+                                <li class="nav-item">
                                     <a class=" custom-nav-link" asp-action="ActionName" asp-controller="ControllerName">
                                         <span class="icons"><i class="fa fa-user" aria-hidden="true"></i></span>
                                         <span class="link-txt">AboutUs</span>
@@ -124,21 +124,26 @@
                                         <span class="link-txt">ContactUs</span>
                                     </a>
                                 </li>
-                                <li  class="nav-item" >
+                                <li class="nav-item">
                                     <a class=" custom-nav-link" asp-action="ActionName" asp-controller="ControllerName">
                                         <span class="icons"><i class="fa fa-newspaper" aria-hidden="true"></i></span>
                                         <span class="link-txt">News</span>
                                     </a>
                                 </li>
-                                 <li  class="nav-item" >
-                                    <a class="custom-nav-link" asp-action="RegisterNewStudent" asp-controller="Employees">
+                                <li class="nav-item">
+                                    <a class="custom-nav-link" asp-action="RegisterStudent" asp-controller="Students">
                                         <span class="icons"><i class="fa fa-newspaper" aria-hidden="true"></i></span>
                                         <span class="link-txt">RegisterStudent</span>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="custom-nav-link" asp-action="GetAllStudents" asp-controller="Students">
+                                        <span class="icons"><i class="fa fa-newspaper" aria-hidden="true"></i></span>
+                                        <span class="link-txt">GetAllStudents</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
-                    </div>     
                 </div>
             </nav>
         </div>

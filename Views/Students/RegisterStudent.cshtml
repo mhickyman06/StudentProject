@@ -1,22 +1,110 @@
 @model RegisterStudentModel;
 
-<style>
-    .registerdiv {
-        width: 80%;
-        height: 500px;
-        border: 2px solid #e0d6cc;
-        border-radius: 10px;
-    }
-    .register-form-header {
-        margin-top: 10px;
-        padding: 30px 30% 30px 30%;
-        background-color: #f1f1f1;
-        color: #eca756;
-    }
-</style>
+
 
 <div class="container registerdiv">
-   <h6 class="register-form-header">Register New Student</h6>
-   
+    <h6 class="register-form-header">Register New Student</h6>
 
+    <div class="mt-3">
+        @*asp-action="RegisterStudent" asp-controller="Students"*@
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.FirstName"></label>
+                </div>
+                <div class="col-sm-7">
+                    <input class="form-control" id="firstName" asp-for="@Model.FirstName">
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.LastName"></label>
+                </div>
+                <div class="col-sm-7">
+                    <input class="form-control" id="lastName" asp-for="@Model.LastName">
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.Gender"></label>
+                </div>
+                <div class="col-sm-7">
+                    <select class="form-select form-select-lg mb-3" id=" gender" aria-label=".form-select-lg example" asp-for="@Model.Gender" asp-items="Html.GetEnumSelectList<Gender>()">
+                        <option disabled selected="selected">Please select</option>
+                    </select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.Age"></label>
+                </div>
+                <div class="col-sm-7">
+                    <input class="form-control" id="age" asp-for="@Model.Age">
+                    <span asp-validation-for="Age" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.DateOfBirth"></label>
+                </div>
+                <div class="col-sm-7">
+                    <input class="form-control" id="dateOfBirth" asp-for="@Model.DateOfBirth">
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.AddressLine1"></label>
+                </div>
+                <div class="col-sm-7">
+                    <input class="form-control" id="address1" asp-for="@Model.AddressLine1">
+                    <span asp-validation-for="AddressLine1" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.AddressLine2"></label>
+                </div>
+                <div class="col-sm-7">
+                    <input class="form-control" id="address2" asp-for="@Model.AddressLine2">
+                    <span asp-validation-for="AddressLine2" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.City"></label>
+                </div>
+                <div class="col-sm-7">
+                    <input class="form-control" id="city" asp-for="@Model.City">
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.State"></label>
+                </div>
+                <div class="col-sm-7">
+                    <input class="form-control" id="state" asp-for="@Model.State">
+                    <span asp-validation-for="State" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.Class"></label>
+                </div>
+                <div class="col-sm-7">
+                    <input class="form-control" id="class" asp-for="@Model.Class">
+                    <span asp-validation-for="Class" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" id="submitBtn" class="registerbtn mb-4">Submit</button>
+            </div>
+        </form>
+    </div>
 </div>

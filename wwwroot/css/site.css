@@ -1,6 +1,7 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+
 a.navbar-brand {
     white-space: normal;
     text-align: center;
@@ -78,7 +79,25 @@ a.navbar-brand {
     white-space: nowrap;
     line-height: 60px; /* Vertically center the text there */
   }
-  
+
+.registerdiv {
+    width: 80%;
+    height: inherit;
+    border: 2px solid #e0d6cc;
+    border-radius: 10px;
+    font-family: Calibri;
+}
+
+.register-form-header {
+    margin-top: 10px;
+    padding: 30px 30% 30px 30%;
+    background-color: #f1f1f1;
+    color: #eca756;
+}
+
+.registerbtn {
+    background-color: #e0d6cc;
+}
   .sliding-news{
     height: 30px;
 }

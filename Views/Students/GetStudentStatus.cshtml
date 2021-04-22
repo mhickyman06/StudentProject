@@ -1,0 +1,95 @@
+@*@model bool;*@
+
+<style>
+    .checkstatus {
+        padding: 10px 20% 10px 20%;
+        border-color: #f1f1f1;
+    }
+
+        .checkstatus:active {
+            border-color: #f1f1f1;
+        }
+</style>
+
+<div class="container registerdiv">
+    <h6 class="register-form-header">Check  Student Status</h6>
+    <div class="mt-3">
+        <form method="POST">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="FirstName">FirstName</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input id="FirstName" name="FirstName" class="checkstatus" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="LastName">LastName</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input id="LastName" name="LastName" class="checkstatus" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <button type="button" id="checkBtn" class="registerbtn">Check</button>
+                <button type="button" id="clearBtn" class="registerbtn">Clear</button>
+            </div>
+            <div class="mt-5">
+                <h6 id="onGet" class="register-form-header" style="display:block">
+                    Please input the Student First Name and Last Name
+                </h6>
+                <h6 id="yes" class="register-form-header" style="display:none">
+                    Student Has been Registered
+                </h6>
+                <h6 id="no" class="register-form-header" style="display:none">
+                    Student Has Not been Registered
+                </h6>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js" type="text/javascript"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
+<script>
+    $(function () {
+        $("#checkBtn").click(()=> {
+            const Values = {
+                "FirstName": $("#FirstName").val(),
+                "LastName": $("#LastName").val()
+            };
+            console.log(Values);
+            $.ajax({
+                type: "Post",
+                url: "https://localhost:5001/api/StudentApi/GetStudentStatus",
+                dataType: "json",
+                'contentType': 'application/json; charset=utf-8',
+                data: JSON.stringify(Values),
+                success: function (data, status) {
+                    console.log(data)
+                    if (data == true) {
+                        console.log("yes");
+
+                        $("#yes").css("display", "block");
+                    }
+                    else {
+                        console.log("no");
+                        $("#no").css("display", "block");
+                    }
+                }
+            });
+
+        })
+        $("#clearBtn").click(function () {
+            console.log("hello");
+            location.reload();
+        })
+    });
+</script>

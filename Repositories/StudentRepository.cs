@@ -31,7 +31,7 @@ namespace StudentProject.Repositories
                 Genders = models.Gender
             };
             _context.Students.Add(std1);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             Address address = new Address()
             {
@@ -39,9 +39,10 @@ namespace StudentProject.Repositories
                 AddressLine2 = models.AddressLine2,
                 City = models.City,
                 State = models.State,
+                StudentId = std1.StudentId
             };
             _context.Addresses.Add(address);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return models;
                   
@@ -52,6 +53,20 @@ namespace StudentProject.Repositories
             List<Student> students = _context.Students.Include(e => e.Address).ToList();
 
             return students;
+        }
+
+        public bool GetStudentStatus(StudentStatusViewModel models)
+        {
+            var student = _context.Students.FirstOrDefault(x => x.FirstName == models.FirstName && x.LastName == models.LastName);
+            if(student == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+
+            }
         }
     }
 }

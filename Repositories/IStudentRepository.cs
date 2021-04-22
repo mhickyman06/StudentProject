@@ -10,5 +10,6 @@ namespace StudentProject.Repositories
         RegisterStudentModel RegisterNewStudent(RegisterStudentModel models);
 
         List<Student> GetAllStudents();
+        bool GetStudentStatus(StudentStatusViewModel models);
     }
 }
