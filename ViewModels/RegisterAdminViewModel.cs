@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudentProject.ViewModels
 {
-    public class RegisterStudentModel
+    public class RegisterAdminViewModel
     {
         [Required(ErrorMessage = "This Student FirstName is required")]
         [DisplayName("First Name")]
@@ -16,21 +16,16 @@ namespace StudentProject.ViewModels
         [DisplayName("Last Name")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "This Student DateOfBirth is required")]
-        [DisplayName("Date Of Birth")]
-        public string DateOfBirth { get; set; }
-
-        [Required(ErrorMessage = "This Student Age is required")]
-        public int Age { get; set; }
-
         [Required]
         public Gender Gender { get; set; }
 
+        [Required(ErrorMessage = "This Student DateOfBirth is required")]
+        [DisplayName("Date Of Birth")]
+        [DataType(DataType.Date)]
+        public string DateOfBirth { get; set; }
+
         [Required]
         public string Address { get; set; }
-
-        [Required(ErrorMessage = "This Student Class is required")]
-        public string Class { get; set; }
 
         [Remote(action: "IsEmailInUsed", controller: "Account")]
         [Required]

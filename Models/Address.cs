@@ -7,8 +7,8 @@ namespace StudentProject.Models
     public class Address
     {
         [Key]
-        [ForeignKey("Student")]
-        public int StudentId { get; set; }
+        [ForeignKey("Id")]
+        public int UserId { get; set; }
        
         public string AddressLine1 { get; set; }
 
@@ -18,7 +18,8 @@ namespace StudentProject.Models
 
         public string State { get; set; }
 
-        public virtual Student Student { get; set; }
+        //public virtual ApplicationUser ApplicationUser { get; set; }
+        //public virtual Student Student { get; set; }
 
     }
 }

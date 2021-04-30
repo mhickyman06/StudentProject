@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using StudentProject.Models;
-using StudentProject.Repositories;
+//using StudentProject.Repositories;
 
 namespace StudentProject
 {
@@ -32,7 +33,14 @@ namespace StudentProject
             {
                 Options.UseSqlServer(connectionString: Configuration.GetConnectionString("Default"));
             });
-            services.AddTransient<IStudentRepository, StudentRepository>();
+            services.AddIdentity<ApplicationUser, IdentityRole>(options=> {
+                options.Password.RequiredUniqueChars = 0;
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            })
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+            //services.AddTransient<IStudentRepository, StudentRepository>();
 
             services.AddControllersWithViews();
         }
@@ -58,6 +66,8 @@ namespace StudentProject
 
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

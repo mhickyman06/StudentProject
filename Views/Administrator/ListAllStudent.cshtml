@@ -1,0 +1,206 @@
+@model IList<ApplicationUser>
+
+<style>
+    main {
+        padding: 1em;
+    }
+
+    input[placeholder] {
+        font-family: -webkit-pictograph;
+        font-size:12px;
+    }
+    .table-wrapper {
+        overflow: auto;
+        max-width: 100%;
+        /*background: linear-gradient(to right, white 30%,rgba(255,255,255,0)),
+            linear-gradient(farthest-side at 100% 50%,rgb)*/
+        background-repeat: no-repeat;
+        background-color: white;
+        background-size: 40px 100%, 40px 100%,14px 100%,14px 100%;
+        background-position: 0 0,100%, 0 0, 100%;
+        background-attachment: local,local,scroll,scroll;
+    }
+
+    tr {
+        border-bottom: 1px solid;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 0.5em 1em;
+        font-stretch: semi-condensed;
+        font-variant-caps: all-petite-caps;
+        font-variant-east-asian: jis78;
+        font: small-caption;
+        font-family: -webkit-pictograph
+    }
+    .numeric {
+        text-align: right;
+    }
+</style>
+<div class="mt-4">
+    <h6 class="register-form-header"> List All Student</h6>
+    <main>
+        <div class="row mt-4">
+            <div class="col-sm-3">
+                <h6 style="font-size: 13px; font-family: system-ui">search for a student</h6>
+            </div>
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <input class="form-control" id="FirstName" placeholder="FirstName" />
+                    </div>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="LastName" placeholder="LastName" />
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="submit" class="btn btn-sm" style="background-color:#f1f1f1;border-color:wheat" id="btn-Submit">Find</button>
+                        <button id="refresh-Btn" class="btn btn-sm"  style="background-color:#f1f1f1;border-color:wheat">Refresh</button>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <h6 id="no-Record" class="text-danger"  style="display:none; font-size:12px"></h6>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 table-wrapper" tabindex="0">
+            <div id="normal-Data" style="display:block">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>StudentId</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Date of Birth</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Class</th>
+                            <th>Address</th>
+                            <th>Email</th>
+                            <th>UserName</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var items in Model)
+                        {
+                            <tr>
+                                <td class="numeric">@items.Id</td>
+                                <td class="numeric">@items.FirstName</td>
+                                <td class="numeric">@items.LastName</td>
+                                <td class="numeric">@items.DateOfBirth</td>
+                                <td class="numeric">@items.Age</td>
+                                <td class="numeric">@items.Genders</td>
+                                <td class="numeric">@items.Class</td>
+                                <td class="numeric">@items.Address</td>
+                                <td class="numeric">@items.Email</td>
+                                <td class="numeric">@items.UserName</td>
+                            </tr>
+                         }
+                    </tbody>
+                </table>
+            </div>
+            <div id="filter-Data" style="display:none">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>StudentId</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Date of Birth</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Class</th>
+                            <th>Address</th>
+                            <th>Email</th>
+                            <th>UserName</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="numeric" id="filter-data_Id"></td>
+                            <td class="numeric" id="filter-data_FirstName"></td>
+                            <td class="numeric" id="filter-data_LastName"></td>
+                            <td class="numeric" id="filter-data_DateOfBirth"></td>
+                            <td class="numeric" id="filter-data_Age"></td>
+                            <td class="numeric" id="filter-data_Genders"></td>
+                            <td class="numeric" id="filter-data_Class"></td>
+                            <td class="numeric" id="filter-data_Address"></td>
+                            <td class="numeric" id="filter-data_Email"></td>
+                            <td class="numeric" id="filter-data_UserName"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js" type="text/javascript"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
+<script>
+    $(function () {
+      
+
+        $('#btn-Submit').click(function () {
+            $("#no-Record").text("C");
+            const FirstName = $('#FirstName').val();
+            const LastName = $('#LastName').val();
+            const values = {
+                "FirstName": FirstName,
+                "LastName": LastName
+            }
+            if (values.FirstName == "" || values.LastName == "") {
+                $("#no-Record").css("display", "block");
+                $("#no-Record").text("Check your inputs and try again ");
+            }
+            console.log(values);
+            $.ajax({
+                type: "Post",
+                url: "/Administrator/FilterStudent",
+                dataType: "json",
+                'contentType': 'application/json; charset=utf-8',
+                data: JSON.stringify(values),
+                success: function (data, status) {
+                    var user = data;
+                    console.log(user);
+                    console.log(data);
+                    if ( user != null) {
+                        $("#normal-Data").css("display", "none");
+                        $("#filter-Data").css("display", "block");
+                        $("#filter-data_Id").text(user.id);
+                        $("#filter-data_FirstName").text(user.firstName);
+                        $("#filter-data_FirstName").text(user.lastName);
+                        $("#filter-data_DateOfBirth").text(user.dateOfBirth);
+                        $("#filter-data_Age").text(user.age);
+                        $("#filter-data_Genders").text(user.genders);
+                        $("#filter-data_Class").text(user.class);
+                        $("#filter-data_Address").text(user.address);
+                        $("#filter-data_Email").text(user.email);
+                        $("#filter-data_UserName").text(user.userName);
+                    }
+                  
+                    else
+                    {
+                        $("#normal-Data").css("display", "block");
+                    }
+                },
+                error: function (error) {
+                    if (error) {
+                        console.log(error);
+                        $("#no-Record").css("display", "block");
+                        $("#no-Record").text(error.responseText);
+                    }
+                    if (values.FirstName == "" || values.LastName == "" && error.responseText != "") {
+                        $("#no-Record").css("display", "block");
+                        //$("#no-Record").text("Check your inputs and try again ");
+                        $("#no-Record").html("One of the inputs was ommited, please check and try again <br/> " + error.responseText);
+                    }
+                }
+            });
+        })
+        $("#refresh-Btn").click(() => {
+            window.location.reload();
+        })
+    });
+</script>
+
