@@ -175,8 +175,8 @@ C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\Razor\Views\Account
 C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\Razor\Views\Administrator\CreateRole.cshtml.g.cs
 C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\Razor\Views\Administrator\ListRoles.cshtml.g.cs
 C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\Razor\Views\Account\RegisterAdmin.cshtml.g.cs
-C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\Razor\Views\Account\RegisterStudent.cshtml.g.cs
 C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\Razor\Views\Administrator\ListAllStudent.cshtml.g.cs
 C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\StudentProject.csproj.AssemblyReference.cache
 C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\StudentProject.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\scopedcss\bundle\StudentProject.styles.css
+C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\Razor\Views\Account\RegisterSchool.cshtml.g.cs

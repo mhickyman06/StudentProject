@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using StudentProject.Data;
 using StudentProject.Models;
 //using StudentProject.Repositories;
 
@@ -29,17 +30,38 @@ namespace StudentProject
         public void ConfigureServices(IServiceCollection services)
         {
            
-            services.AddDbContextPool<ApplicationDbContext>(Options =>
+            services.AddDbContextPool<SchoolApplicationDbContext>(Options =>
             {
                 Options.UseSqlServer(connectionString: Configuration.GetConnectionString("Default"));
             });
-            services.AddIdentity<ApplicationUser, IdentityRole>(options=> {
+            services.AddDbContextPool<CandidatesApplicationDbContext>(Options =>
+            {
+                Options.UseSqlServer(connectionString: Configuration.GetConnectionString("Default"));
+            });
+            services.AddIdentity<SchoolApplicationUser, IdentityRole>(options => {
                 options.Password.RequiredUniqueChars = 0;
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
             })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<SchoolApplicationDbContext>();
+
+            services.AddIdentityCore<CandidatesApplicationUser>(options =>
+            {
+
+            })
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<CandidatesApplicationDbContext>();
+
+
+            //services.AddIdentityCore<SchoolApplicationUser, IdentityRole>(options => {
+            //    options.Password.RequiredUniqueChars = 0;
+            //    options.Password.RequireDigit = false;
+            //    options.Password.RequireNonAlphanumeric = false;
+            //    options.Password.RequireUppercase = false;
+            //})
+            //   .AddEntityFrameworkStores<SchoolApplicationDbContext>();
             //services.AddTransient<IStudentRepository, StudentRepository>();
 
             services.AddControllersWithViews();

@@ -2,20 +2,21 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 using Microsoft.AspNetCore.Identity;
+using StudentProject.Models;
 
-namespace StudentProject.Models
+namespace StudentProject.Data
 {
-   public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class CandidatesApplicationDbContext : IdentityDbContext<CandidatesApplicationUser>
     {
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        public CandidatesApplicationDbContext(DbContextOptions<CandidatesApplicationDbContext> options) : base(options)
         {
 
         }
-        public DbSet<Address> Addresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             base.OnModelCreating(modelBuilder);
         }
     }

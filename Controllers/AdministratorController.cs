@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using StudentProject.Data;
 using StudentProject.Models;
 using StudentProject.ViewModels;
 
@@ -16,16 +17,16 @@ namespace StudentProject.Controllers
     public class AdministratorController : Controller
     {
         private readonly ILogger<AdministratorController> _logger;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<SchoolApplicationUser> _userManager;
+        private readonly SignInManager<SchoolApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly ApplicationDbContext context;
+        private readonly SchoolApplicationDbContext context;
 
         public AdministratorController(ILogger<AdministratorController> logger,
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
+            UserManager<SchoolApplicationUser> userManager,
+            SignInManager<SchoolApplicationUser> signInManager,
             RoleManager<IdentityRole> roleManager,
-            ApplicationDbContext context)
+            SchoolApplicationDbContext context)
         {
             this._logger = logger;
             this._userManager = userManager;
@@ -43,13 +44,13 @@ namespace StudentProject.Controllers
         }
         [HttpGet]
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult CreateRole()
         {
             return View();
         }
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateRole(CreateRoleViewModel createRoleViewModel)
         {
             if (ModelState.IsValid)
@@ -76,26 +77,26 @@ namespace StudentProject.Controllers
             return View(createRoleViewModel);
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> ListAllStudent()
-        {
-            IList<ApplicationUser> model = await _userManager.GetUsersInRoleAsync("Student");
-            return View(model);
-        }
+        //[HttpGet]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<ActionResult> ListAllStudent()
+        //{
+        //    IList<ApplicationUser> model = await _userManager.GetUsersInRoleAsync("Student");
+        //    return View(model);
+        //}
 
-        [HttpPost]
-        public IActionResult FilterStudent([FromBody] FilterStudentViewModel filtermodel)
-        {
-            var user = _userManager.Users.FirstOrDefault(x => x.FirstName == filtermodel.FirstName && x.LastName == filtermodel.LastName);
-            if (user != null)
-            {
-                return Ok(user);
-            }
-          
-                return BadRequest("User with the FirstName "+ filtermodel.FirstName+ " and LastName "
-                    +filtermodel.LastName +" was not found, please check your inputs and try again");
-            
-        }
+        //[HttpPost]
+        //public IActionResult FilterStudent([FromBody] FilterStudentViewModel filtermodel)
+        //{
+        //    var user = _userManager.Users.FirstOrDefault(x => x.FirstName == filtermodel.FirstName && x.LastName == filtermodel.LastName);
+        //    if (user != null)
+        //    {
+        //        return Ok(user);
+        //    }
+
+        //    return BadRequest("User with the FirstName " + filtermodel.FirstName + " and LastName "
+        //        + filtermodel.LastName + " was not found, please check your inputs and try again");
+
+        //}
     }
 }

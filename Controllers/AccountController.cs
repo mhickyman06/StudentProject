@@ -15,13 +15,13 @@ namespace StudentProject.Controllers
     public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<SchoolApplicationUser> _userManager;
+        private readonly SignInManager<SchoolApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public AccountController(ILogger<AccountController> logger,
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
+            UserManager<SchoolApplicationUser> userManager,
+            SignInManager<SchoolApplicationUser> signInManager,
             RoleManager<IdentityRole> roleManager)
         {
             this._logger = logger;
@@ -47,7 +47,7 @@ namespace StudentProject.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult RegisterStudent()
+        public IActionResult RegisterSchool()
         {
 
             return View();
@@ -55,23 +55,23 @@ namespace StudentProject.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> RegisterStudent(RegisterStudentModel registerViewModel)
+        public async Task<IActionResult> RegisterSchool(RegisterSchoolViewModel registerViewModel)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser()
+                var user = new SchoolApplicationUser()
                 {
-                    FirstName = registerViewModel.FirstName,
-                    LastName = registerViewModel.LastName,
-                    Age = registerViewModel.Age,
-                    DateOfBirth = registerViewModel.DateOfBirth,
-                    Genders = registerViewModel.Gender,
-                    Address = registerViewModel.Address,
-                    Class = registerViewModel.Class,
-                    UserName = registerViewModel.Email,
-                    Email = registerViewModel.Email,
+                    //FirstName = registerViewModel.FirstName,
+                    //LastName = registerViewModel.LastName,
+                    //Age = registerViewModel.Age,
+                    //DateOfBirth = registerViewModel.DateOfBirth,
+                    //Genders = registerViewModel.Gender,
+                    //Address = registerViewModel.Address,
+                    //Class = registerViewModel.Class,
+                    //UserName = registerViewModel.Email,
+                    //Email = registerViewModel.Email,
                 };
-                var result = await _userManager.CreateAsync(user, registerViewModel.Password);
+                var result = await _userManager.CreateAsync(user, registerViewModel.SchoolPassword);
                 if (!await _roleManager.RoleExistsAsync("Student"))
                     await _roleManager.CreateAsync(new IdentityRole("Student"));
 
@@ -124,15 +124,15 @@ namespace StudentProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser()
+                var user = new SchoolApplicationUser()
                 {
-                    FirstName = registerViewModel.FirstName,
-                    LastName = registerViewModel.LastName,  
-                    Genders = registerViewModel.Gender,
-                    DateOfBirth = registerViewModel.DateOfBirth,
-                    Address = registerViewModel.Address,
-                    UserName = registerViewModel.Email,
-                    Email = registerViewModel.Email,
+                    //FirstName = registerViewModel.FirstName,
+                    //LastName = registerViewModel.LastName,  
+                    //Genders = registerViewModel.Gender,
+                    //DateOfBirth = registerViewModel.DateOfBirth,
+                    //Address = registerViewModel.Address,
+                    //UserName = registerViewModel.Email,
+                    //Email = registerViewModel.Email,
                 };
 
              

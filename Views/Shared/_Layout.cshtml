@@ -1,19 +1,27 @@
-﻿@inject Microsoft.AspNetCore.Identity.SignInManager<ApplicationUser> signinmanger;
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<SchoolApplicationUser> signinmanger;
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - StudentProject</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/Custom.css" />
     <link rel="stylesheet" href="~/css/Custom1.css" />
+    <link rel="stylesheet" href="~/css/CustomStyle1.css" />
+    <link rel="stylesheet" href="~/css/jquery.mCustomScrollbar.min.css" />
+    <link rel="stylesheet" href="~/css/Slick.css" />
+    <link rel="stylesheet" href="~/css/responsive.css" />
     <link rel="stylesheet" href="~/lib/fontawesome-free-5.13.0-web/css/all.css" />
     <link rel="stylesheet" href="~/lib/fontawesome-free-5.13.0-web/css/brands.css" />
     <link rel="icon" href="~/lib/fontawesome-free-5.13.0-web/svgs/brands" />
-
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
     <style>
 
         .custom-nav-link {
@@ -55,6 +63,12 @@
             margin-left: -15px;
         }
 
+        .dropdown-item {
+            padding-left: 50px;
+            padding-right: 50px;
+            margin-left: 0px;
+        }
+
         .sub-nav {
             visibility: hidden;
             opacity: 0;
@@ -78,11 +92,18 @@
             word-wrap: break-word;
             word-break: break-all;
         }
+        .top_head_btn {
+            background-color: #cebc8f;
+            padding: 7px 41px !important;
+            /*margin-top: 10px;*/
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
     </style>
 
 </head>
-<body>
-    <!--Header Section-->
+@*<body>
+    Header Section
     <header>
         <div class="top-header-bar">
             <div class="row ml-4">
@@ -140,6 +161,18 @@
                                     <span class="link-txt">Register</span>
                                 </a>
                             </li>
+                            @if (signinmanger.IsSignedIn(User) && User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="custom-nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin Links</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a asp-action="ListAllStudent" asp-controller="Administrator" class="dropdown-item custom-nav-link">Students</a>
+                                        <a asp-action="ListRoles" asp-controller="Administrator" class="dropdown-item custom-nav-link">Roles</a>
+                                        <a asp-action="CreateRole" asp-controller="Administrator" class="dropdown-item custom-nav-link">Create Role</a>
+                                        <a asp-action="RegisterAdmin" asp-controller="Account" class="dropdown-item custom-nav-link">Register Admin</a>
+                                    </div>
+                                </li>
+                            }
                             <li class="nav-item ml-5">
                                 <ul class="navbar-nav">
                                     @{
@@ -168,29 +201,103 @@
                                     }
                                 </ul>
                             </li>
-                            @*<li class="nav-item">
-                                    <a class="custom-nav-link" asp-action="GetAllStudents" asp-controller="Students">
-                                        <span class="icons"><i class="fa fa-newspaper" aria-hidden="true"></i></span>
-                                        <span class="link-txt">GetAllStudents</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="custom-nav-link" asp-action="GetStudentStatus" asp-controller="Students">
-                                        <span class="icons"><i class="fa fa-newspaper" aria-hidden="true"></i></span>
-                                        <span class="link-txt">CheckStudentStatus</span>
-                                    </a>
-                                </li>*@
                         </ul>
+
                     </div>
                 </div>
             </nav>
         </div>
+    </header>*@
+<!--Header Section-->
+<!--moving news-->
+<body class="main-layout">
+    <!-- loader  -->
+    <div class="loader_bg">
+        <div class="loader"><img src="~/images/loading.gif" alt="#" /></div>
+    </div>
+    <!-- end loader -->
+    <!-- header -->
+    <header>
+        <!-- header inner -->
+        <div class="header">
+            <div style="background-color:#ffc221">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-9 col-lg-6 col-md-6 col-sm-6">
+                            <div class="top-box">
+                                <ul class="sociel_link">
+                                    <li> <a href="#"><img class="tw-i" src="~/lib/fontawesome-free-5.13.0-web/svgs/brands/twitter.svg" /></a></li>
+                                    <li> <a href="#"><img class="tw-i" src="~/lib/fontawesome-free-5.13.0-web/svgs/brands/facebook.svg" /></a></li>
+                                    <li> <a href="#"><img class="tw-i" src="~/lib/fontawesome-free-5.13.0-web/svgs/brands/instagram.svg" /></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                            <div class="row mt-3 mb-2">
+                                @{
+                                    if (signinmanger.IsSignedIn(User))
+                                    {
+
+                                        <div class="col-6">
+                                            <form method="post" asp-action="Logout" asp-controller="Account">
+                                                <button type="submit" class="top_head_btn">Logout</button>
+                                            </form>
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        @*<li class="nav-item">
+                    <a class="custom-nav-link" asp-action="Login" asp-controller="Account">
+                        <span class="icons"><i class="fa fa-newspaper" aria-hidden="true"></i></span>
+                        <span class="link-txt">Login</span>
+                    </a>
+                </li>*@
+                                        <div class="col-6">
+                                            <a class="top_head_btn ml-2" asp-action="Login" asp-controller="Account">Login</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a class="top_head_btn ml-1" asp-action="RegisterStudent" asp-controller="Account">Enroll</a>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                        <div class="full">
+                            <div class="center-desk">
+                                <h3 style="padding:30px">WordCrusher</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-7 col-lg-7 col-md-9 col-sm-9">
+                        <div class="menu-area">
+                            <div class="limit-box">
+                                <nav class="main-menu">
+                                    <ul class="menu-area-main">
+                                        <li class="active"> <a href="index.html">Home</a> </li>
+                                        <li> <a href="#">Schools</a> </li>
+                                        <li> <a href="#">Parents</a> </li>
+                                        <li> <a href="#">Sponsors</a> </li>
+                                        <li> <a href="#">FAQ</a> </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end header inner -->
+        </div>
     </header>
-    <!--Header Section-->
-    <!--moving news-->
     <div class="sliding-news">
         <marquee behavior="" direction="">
-            <h6 style="color:#ff6a00;padding-top:5px">
+            <h6 style="color:#ffc221;padding-top:5px">
                 Hello world hello world hello world hello worldhello world hello world hello world hello world hello world hello world hello world hello world hello world
                 hello world hello world hello world
             </h6>
@@ -242,10 +349,42 @@
             &copy; 2021 - StudentProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/js/popper.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/plugin.js"></script>
+        <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="~/js/custom1.js"></script>
+        <script src="~/js/Custom.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>*@
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/jquery-3.0.0.min.js"></script>
+    <script src="~/js/plugin.js"></script>
+    <!-- sidebar -->
+    <script src="~/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/js/custom1.js"></script>
     <script src="~/js/Custom.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    @*<script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>*@
+    <script>
+        $(document).ready(function () {
+            $(".fancybox").fancybox({
+                openEffect: "none",
+                closeEffect: "none"
+            });
+
+            $(".zoom").hover(function () {
+
+                $(this).addClass('transition');
+            }, function () {
+
+                $(this).removeClass('transition');
+            });
+        });
+
+    </script>
     @if (IsSectionDefined("Scripts"))
     {
         @RenderSection("Scripts", true);

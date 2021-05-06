@@ -1,0 +1,138 @@
+@model RegisterSchoolViewModel;
+
+<style>
+    .nice-select option:hover {
+        background-color: #ffc221;
+    }
+</style>
+
+<div class="container registerdiv" style="margin-bottom:70px">
+    <h6 class="register-form-header" style="color:#ffc221">Register as a New Student</h6>
+
+    <div class="mt-3">
+        <form asp-action="RegisterStudent" asp-controller="Account" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.SchoolName"></label>
+                </div>
+                <div class="col-sm-7">
+                    <input class="form-control" id="schooName" asp-for="@Model.SchoolName">
+                    <span asp-validation-for="SchoolName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.SchoolEmail"></label>
+                </div>
+                <div class="col-sm-7">
+                    <input class="form-control" id="lastName" asp-for="@Model.SchoolEmail">
+                    <span asp-validation-for="SchoolEmail" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.RelationShip"></label>
+                </div>
+                <div class="col-sm-7">
+                    <select class="nice-select  mb-3" id="relationship" asp-for="@Model.RelationShip" asp-items="Html.GetEnumSelectList<Gender>()">
+                        <option disabled selected="selected">Please select</option>
+                        <option value="Prinicipal_Administrator">Principal/Administrator</option>
+                        <option value="Teacher">Teacher</option>
+                        <option value="School_Support_Staff">School Suport Staff</option>
+                        <option value="Sponsoring_Business">Sponsoring Business</option>
+
+                    </select>
+                    <span asp-validation-for="RelationShip" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.SchoolPhoneno"></label>
+                </div>
+                <div class="col-sm-7">
+                    <input class="form-control" id="schoolPhoneno" asp-for="@Model.SchoolPhoneno">
+                    <span asp-validation-for="SchoolPhoneno" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.SchoolCandidates"></label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="date" class="form-control" id="schoolCandidates" asp-for="@Model.SchoolCandidates">
+                    <span asp-validation-for="SchoolCandidates" class="text-danger"></span>
+                </div>
+            </div>
+            <div>
+                <h5 style="color:#ffc221; text-align:center;margin-bottom:20px">Generate Candidates Login Information</h5>
+            </div>
+            <div class="mb-5 row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="form-label" asp-for="@Model.CandidateLoginUserName"></label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input class="form-control" id="candidateLoginUserName" asp-for="@Model.CandidateLoginUserName">
+                            <span asp-validation-for="CandidateLoginUserName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="form-label" asp-for="@Model.CandidatePassword"></label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input class="form-control" id="candidatePassword" asp-for="@Model.CandidatePassword">
+                            <span asp-validation-for="CandidatePassword" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="form-label" asp-for="@Model.ConfirmCandidatePassword"></label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input class="form-control" id="confirmCandidatePassword" asp-for="@Model.ConfirmCandidatePassword">
+                            <span asp-validation-for="ConfirmCandidatePassword" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.VideoPath"></label>
+                </div>
+                <div class="col-sm-7">
+                    <input class="form-control" id="videoPath" asp-for="@Model.VideoPath">
+                    <span asp-validation-for="VideoPath" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.SchoolPassword"></label>
+                </div>
+                <div class="col-sm-7">
+                    <input class="form-control" id="password" asp-for="@Model.SchoolPassword">
+                    <span asp-validation-for="SchoolPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-3">
+                    <label class="form-label" asp-for="@Model.ConfirmSchoolPassword"></label>
+                </div>
+                <div class="col-sm-7">
+                    <input class="form-control" id="ConfirmSchoolPassword" asp-for="@Model.ConfirmSchoolPassword">
+                    <span asp-validation-for="ConfirmSchoolPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" id="submitBtn" class="registerbtn mb-4 btn-sm">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
