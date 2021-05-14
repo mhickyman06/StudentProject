@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentProject.Models
 {
@@ -10,6 +12,7 @@ namespace StudentProject.Models
         Male =0,
         Female =1
     }
+    
     public enum States
     {
        Abia = 0,
@@ -49,41 +52,55 @@ namespace StudentProject.Models
        Yobe = 34,
        Zamfara = 35
     }
-   
+    public class SchoolVideos
+    {
+        [Key]
+        [ForeignKey("SchoolApplicationUser")]
+        public string SchoolApplicationUserId { get; set; }
+
+        [Required]
+        public string VideoPath { get; set; }
+
+        public DateTime CreatedAt = DateTime.Now;
+
+        //[ForeignKey("SchoolApplicationUser")]
+        public virtual SchoolApplicationUser schoolApplicationUser { get; set; }
+    }
     public class SchoolApplicationUser : IdentityUser
     {
+
         [Required]
         [DisplayName("School Name")]
         public string SchoolName { get; set; }
 
-        [DisplayName("State Where The School is Located")]
         [Required]
+        [DisplayName("State Where The School is Located")]
         public string SchoolState { get; set; }
 
-        [DisplayName("Local Governemt of Where the School is Located")]
         [Required]
+        [DisplayName("Local Governemt of Where the School is Located")]
         public string SchoolLocalGovt { get; set; }
 
+        [Required]
         [DisplayName("Relationship to School")]
-        [Required]
-        public string RalationShip { get; set; }
+        public string RelationShip { get; set; }
 
-        [DisplayName("Schools Candidate")]
-        [DataType(DataType.MultilineText)]
-        public string  SchoolCandidates { get; set; }
+        //[DisplayName("Schools Candidate")]
+        //[DataType(DataType.MultilineText)]
+        //public string  SchoolCandidates { get; set; }
 
-        public string VideoPath { get; set; }
+        //public string VideoPath { get; set; }
 
 
-        [Required]
-        public string CandidateLoginUserName { get; set; }
+        //[Required]
+        //public string CandidateLoginUserName { get; set; }
         
-        [Required]
-        [DataType(DataType.Password)]
-        public string CandidateLoginPassword { get; set; }
+        //[Required]
+        //[DataType(DataType.Password)]
+        //public string CandidateLoginPassword { get; set; }
 
-        public virtual CandidatesApplicationUser CandidatesApplicationUser { get; set; }
+        public virtual SchoolVideos SchoolVideos { get; set; }
+        public virtual ICollection<SchoolCandidates> SchoolCandidates { get; set; }
 
-        public virtual LocalGovtSchool LocalGovtSchools { get; set; }
     }
 }

@@ -28,6 +28,29 @@ namespace StudentProject.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Schools()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Parents()
+        {
+            return View();
+        }
+
+        public IActionResult Sponsors()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Faq()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

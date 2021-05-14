@@ -13,17 +13,32 @@ namespace StudentProject.Data
         {
 
         }
-
+        public DbSet<SchoolVideos> schoolVideos { get; set; }
+        public DbSet<SchoolCandidates> schoolCandidates { get; set; }
+        public DbSet<LocalGovtSchool> localGovtSchools { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<SchoolApplicationUser>()
-                .HasOne(c => c.CandidatesApplicationUser);
+                .HasMany(sc => sc.SchoolCandidates);
+
+            modelBuilder.Entity<SchoolApplicationUser>()
+               .HasOne(sv => sv.SchoolVideos);
+
+            modelBuilder.Entity<SchoolVideos>()
+                .HasOne(x => x.schoolApplicationUser)
+                .WithOne(y => y.SchoolVideos);
+                
+                
+            //modelBuilder.Entity<SchoolVideos>()
+            //   .HasOne(s=>s.schoolApplicationUser);
+
 
             modelBuilder.Entity<LocalGovtSchool>()
-                .HasMany(s => s.Schools)
-                .WithOne(l => l.LocalGovtSchools);
-                   
-               
+                .HasKey(ent => ent.Id);
+
+                
+                            
             base.OnModelCreating(modelBuilder);
         }
     }

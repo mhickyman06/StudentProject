@@ -1,0 +1,85 @@
+@model SchoolCandidatesModel;
+
+
+
+<div class="row mt-5" style="margin-bottom:30px">
+    <div class="col-sm-3">
+
+    </div>
+    <div class="col-sm-9">
+        <div class="container registerdiv" style="margin-bottom:70px">
+            <h6 class="register-form-header" style="color:#ffc221">Register as a New Student</h6>
+
+            <div class="mt-3">
+                <form id="registerSchool" asp-action="SchoolCandidate" asp-controller="Account" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-7">
+                            <h5 style="color:#ffc221; text-align:center;">Schools Candidates</h5>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="registerbtn mb-4 btn-sm addMoreCandidates">Add More</button>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="registerbtn mb-4 btn-sm" id="deleteLastAdded">Delete</button>
+                        </div>
+
+                    </div>
+                    <div id="schoolCandidates" class="mb-5">
+                        <div class="mb-3 row">
+                            <div class="col-sm-4">
+                                <label class="form-label" asp-for="@Model.SchoolCandidates"></label>
+                            </div>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="schoolCandidates1" asp-for="@Model.SchoolCandidates" />
+                                <span asp-validation-for="SchoolCandidates" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-sm-4">
+                                <label class="form-label" asp-for="@Model.SchoolCandidates"></label>
+                            </div>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="schoolCandidates2" asp-for="@Model.SchoolCandidates" />
+                                <span asp-validation-for="SchoolCandidates" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" id="submitBtn" class="registerbtn mb-4 btn-sm">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/jquery.min.js"></script>
+<script>
+    var integrate = 2;
+
+    var buttons = document.getElementsByClassName("addMoreCandidates");
+    $(".addMoreCandidates").click(function () {
+        integrate++;
+        //name="SchoolCandidates' + integrate + '"
+        $("#schoolCandidates").append(
+            '<div class="mb-3 row "id="addedForms' + integrate + '" >\
+                 <div class="col-sm-4">\
+                        <label class="form-label" asp-for="Model.SchoolCandidates">Candidate FullName</label>\
+                 </div>\
+                 <div class="col-sm-6">\
+                        <input class="form-control" id="schoolCandidates' + integrate + '" type="text" data-val="true" name="SchoolCandidates" value\
+                         data-val-required="The Canididates FullName field is required"  />\
+                        <span asp-validation-for="SchoolCandidates" class="text-danger"></span>\
+                </div>\
+                <div class="col-sm-3">\
+                </div >\
+            </div>'
+        );
+    });
+    $("#deleteLastAdded").click(function () {
+        var intergrateMinus = integrate--;
+        $("#addedForms" + intergrateMinus).remove();
+    });
+</script>

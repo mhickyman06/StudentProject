@@ -9,9 +9,9 @@ $(function () {
 	/* Preloader
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 
-	setTimeout(function () {
-		$('.loader_bg').fadeToggle();
-	}, 1500);
+	//setTimeout(function () {
+	//	$('.loader_bg').fadeToggle();
+	//}, 1500);
 
 	/* JQuery Menu
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
@@ -135,27 +135,11 @@ $(function () {
 	/* Scroll to Top
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 
-	$(window).on('scroll', function () {
-		scroll = $(window).scrollTop();
-		if (scroll >= 100) {
-			$("#back-to-top").addClass('b-show_scrollBut')
-		} else {
-			$("#back-to-top").removeClass('b-show_scrollBut')
-		}
-	});
-	$("#back-to-top").on("click", function () {
-		$('body,html').animate({
-			scrollTop: 0
-		}, 1000);
-	});
+	
 
 	/* Contact-form
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
-	$.validator.setDefaults({
-		submitHandler: function () {
-			alert("submitted!");
-		}
-	});
+	
 
 	$(document).ready(function () {
 		$("#contact-form").validate({
@@ -275,37 +259,37 @@ $(function () {
 	/* Deal Slider
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 
-	$('.deal-slider').slick({
-		dots: false,
-		infinite: false,
-		prevArrow: '.previous-deal',
-		nextArrow: '.next-deal',
-		speed: 500,
-		slidesToShow: 3,
-		slidesToScroll: 3,
-		infinite: false,
-		responsive: [{
-			breakpoint: 1024,
-			settings: {
-				slidesToShow: 3,
-				slidesToScroll: 2,
-				infinite: true,
-				dots: false
-			}
-		}, {
-			breakpoint: 768,
-			settings: {
-				slidesToShow: 2,
-				slidesToScroll: 2
-			}
-		}, {
-			breakpoint: 480,
-			settings: {
-				slidesToShow: 1,
-				slidesToScroll: 1
-			}
-		}]
-	});
+	//$('.deal-slider').slick({
+	//	dots: false,
+	//	infinite: false,
+	//	prevArrow: '.previous-deal',
+	//	nextArrow: '.next-deal',
+	//	speed: 500,
+	//	slidesToShow: 3,
+	//	slidesToScroll: 3,
+	//	infinite: false,
+	//	responsive: [{
+	//		breakpoint: 1024,
+	//		settings: {
+	//			slidesToShow: 3,
+	//			slidesToScroll: 2,
+	//			infinite: true,
+	//			dots: false
+	//		}
+	//	}, {
+	//		breakpoint: 768,
+	//		settings: {
+	//			slidesToShow: 2,
+	//			slidesToScroll: 2
+	//		}
+	//	}, {
+	//		breakpoint: 480,
+	//		settings: {
+	//			slidesToShow: 1,
+	//			slidesToScroll: 1
+	//		}
+	//	}]
+	//});
 
 	/* News Slider
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */

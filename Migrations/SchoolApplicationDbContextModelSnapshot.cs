@@ -150,71 +150,23 @@ namespace StudentProject.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("StudentProject.Models.CandidatesApplicationUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CandidatesApplicationUser");
-                });
-
             modelBuilder.Entity("StudentProject.Models.LocalGovtSchool", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("LocalGovernmentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SchoolName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("LocalGovtSchool");
+                    b.ToTable("localGovtSchools");
                 });
 
             modelBuilder.Entity("StudentProject.Models.SchoolApplicationUser", b =>
@@ -224,14 +176,6 @@ namespace StudentProject.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("CandidateLoginPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CandidateLoginUserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -244,9 +188,6 @@ namespace StudentProject.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LocalGovtSchoolsId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -270,11 +211,8 @@ namespace StudentProject.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("RalationShip")
+                    b.Property<string>("RelationShip")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SchoolCandidates")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SchoolLocalGovt")
@@ -299,12 +237,7 @@ namespace StudentProject.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<string>("VideoPath")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("LocalGovtSchoolsId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -315,6 +248,39 @@ namespace StudentProject.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("StudentProject.Models.SchoolCandidates", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SchoolCandidate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SchoolId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("schoolCandidates");
+                });
+
+            modelBuilder.Entity("StudentProject.Models.SchoolVideos", b =>
+                {
+                    b.Property<string>("SchoolApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("VideoPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SchoolApplicationUserId");
+
+                    b.ToTable("schoolVideos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -368,20 +334,20 @@ namespace StudentProject.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("StudentProject.Models.CandidatesApplicationUser", b =>
+            modelBuilder.Entity("StudentProject.Models.SchoolCandidates", b =>
                 {
                     b.HasOne("StudentProject.Models.SchoolApplicationUser", "SchoolApplicationUser")
-                        .WithOne("CandidatesApplicationUser")
-                        .HasForeignKey("StudentProject.Models.CandidatesApplicationUser", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("SchoolCandidates")
+                        .HasForeignKey("SchoolId");
                 });
 
-            modelBuilder.Entity("StudentProject.Models.SchoolApplicationUser", b =>
+            modelBuilder.Entity("StudentProject.Models.SchoolVideos", b =>
                 {
-                    b.HasOne("StudentProject.Models.LocalGovtSchool", "LocalGovtSchools")
-                        .WithMany("Schools")
-                        .HasForeignKey("LocalGovtSchoolsId");
+                    b.HasOne("StudentProject.Models.SchoolApplicationUser", "schoolApplicationUser")
+                        .WithOne("SchoolVideos")
+                        .HasForeignKey("StudentProject.Models.SchoolVideos", "SchoolApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

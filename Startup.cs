@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmployeeManagementwithdatabase1.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,34 +37,38 @@ namespace StudentProject
             {
                 Options.UseSqlServer(connectionString: Configuration.GetConnectionString("Default"));
             });
-            services.AddDbContextPool<CandidatesApplicationDbContext>(Options =>
-            {
-                Options.UseSqlServer(connectionString: Configuration.GetConnectionString("Default"));
-            });
+          
             services.AddIdentity<SchoolApplicationUser, IdentityRole>(options => {
                 options.Password.RequiredUniqueChars = 0;
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
+                options.SignIn.RequireConfirmedEmail = false;
             })
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<SchoolApplicationDbContext>();
 
-            services.AddIdentityCore<CandidatesApplicationUser>(options =>
+
+            services.AddTransient<IFileManagerService, FileService>();
+
+            services.AddTransient<IMailService, MailService>();
+
+            services.Configure<IISServerOptions>(options =>
             {
+                options.MaxRequestBodySize = int.MaxValue;
+            });
 
-            })
-                .AddDefaultTokenProviders()
-                .AddEntityFrameworkStores<CandidatesApplicationDbContext>();
+            services.Configure<FormOptions>(options =>
+            {
+                options.ValueLengthLimit = int.MaxValue;
+                options.MultipartBodyLengthLimit = int.MaxValue;
+                options.MultipartHeadersLengthLimit = int.MaxValue;
+            });
 
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
 
-            //services.AddIdentityCore<SchoolApplicationUser, IdentityRole>(options => {
-            //    options.Password.RequiredUniqueChars = 0;
-            //    options.Password.RequireDigit = false;
-            //    options.Password.RequireNonAlphanumeric = false;
-            //    options.Password.RequireUppercase = false;
-            //})
-            //   .AddEntityFrameworkStores<SchoolApplicationDbContext>();
+            services.AddAuthorization();
+
             //services.AddTransient<IStudentRepository, StudentRepository>();
 
             services.AddControllersWithViews();

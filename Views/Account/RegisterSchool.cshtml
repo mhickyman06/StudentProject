@@ -1,138 +1,395 @@
 @model RegisterSchoolViewModel;
 
+
 <style>
     .nice-select option:hover {
         background-color: #ffc221;
     }
 </style>
 
-<div class="container registerdiv" style="margin-bottom:70px">
-    <h6 class="register-form-header" style="color:#ffc221">Register as a New Student</h6>
+<div class="row mt-5" style="margin-bottom:80px">
+    <div class="col-sm-3">
 
-    <div class="mt-3">
-        <form asp-action="RegisterStudent" asp-controller="Account" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="mb-3 row">
-                <div class="col-sm-3">
-                    <label class="form-label" asp-for="@Model.SchoolName"></label>
-                </div>
-                <div class="col-sm-7">
-                    <input class="form-control" id="schooName" asp-for="@Model.SchoolName">
-                    <span asp-validation-for="SchoolName" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <div class="col-sm-3">
-                    <label class="form-label" asp-for="@Model.SchoolEmail"></label>
-                </div>
-                <div class="col-sm-7">
-                    <input class="form-control" id="lastName" asp-for="@Model.SchoolEmail">
-                    <span asp-validation-for="SchoolEmail" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <div class="col-sm-3">
-                    <label class="form-label" asp-for="@Model.RelationShip"></label>
-                </div>
-                <div class="col-sm-7">
-                    <select class="nice-select  mb-3" id="relationship" asp-for="@Model.RelationShip" asp-items="Html.GetEnumSelectList<Gender>()">
-                        <option disabled selected="selected">Please select</option>
-                        <option value="Prinicipal_Administrator">Principal/Administrator</option>
-                        <option value="Teacher">Teacher</option>
-                        <option value="School_Support_Staff">School Suport Staff</option>
-                        <option value="Sponsoring_Business">Sponsoring Business</option>
+    </div>
+    <div class="col-sm-9">
+        <div class="container registerdiv" style="margin-bottom:70px">
+            <h4 class="register-form-header" style="color:#ffc221">Register as a New Student</h4>
 
-                    </select>
-                    <span asp-validation-for="RelationShip" class="text-danger"></span>
-
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <div class="col-sm-3">
-                    <label class="form-label" asp-for="@Model.SchoolPhoneno"></label>
-                </div>
-                <div class="col-sm-7">
-                    <input class="form-control" id="schoolPhoneno" asp-for="@Model.SchoolPhoneno">
-                    <span asp-validation-for="SchoolPhoneno" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <div class="col-sm-3">
-                    <label class="form-label" asp-for="@Model.SchoolCandidates"></label>
-                </div>
-                <div class="col-sm-7">
-                    <input type="date" class="form-control" id="schoolCandidates" asp-for="@Model.SchoolCandidates">
-                    <span asp-validation-for="SchoolCandidates" class="text-danger"></span>
-                </div>
-            </div>
-            <div>
-                <h5 style="color:#ffc221; text-align:center;margin-bottom:20px">Generate Candidates Login Information</h5>
-            </div>
-            <div class="mb-5 row">
-                <div class="col-sm-6">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="form-label" asp-for="@Model.CandidateLoginUserName"></label>
+            <div class="mt-3">
+                <form id="registerSchool" asp-action="RegisterSchool" asp-controller="Account" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                  
+                    <div class="mb-3 row">
+                        <div class="col-sm-3">
+                            <label class="form-label" asp-for="@Model.SchoolName"></label>
                         </div>
-                        <div class="col-sm-6">
-                            <input class="form-control" id="candidateLoginUserName" asp-for="@Model.CandidateLoginUserName">
-                            <span asp-validation-for="CandidateLoginUserName" class="text-danger"></span>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="schoolName" asp-for="@Model.SchoolName" oninput="GetFunction()">
+                            <span asp-validation-for="SchoolName" class="text-danger"></span>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="form-label" asp-for="@Model.CandidatePassword"></label>
+                    <div class="mb-3 row">
+                        <div class="col-sm-3">
+                            <label class="form-label" asp-for="@Model.SchoolState"></label>
                         </div>
-                        <div class="col-sm-6">
-                            <input class="form-control" id="candidatePassword" asp-for="@Model.CandidatePassword">
-                            <span asp-validation-for="CandidatePassword" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="form-label" asp-for="@Model.ConfirmCandidatePassword"></label>
-                        </div>
-                        <div class="col-sm-6">
-                            <input class="form-control" id="confirmCandidatePassword" asp-for="@Model.ConfirmCandidatePassword">
-                            <span asp-validation-for="ConfirmCandidatePassword" class="text-danger"></span>
+                        <div class="col-sm-7">
+                            <select id="schoolState"  class="form-select form-select-sm nice-select" aria-label=".form-select-sm example" asp-for="@Model.SchoolState" asp-items="@Html.GetEnumSelectList<States>()">
+                                <option disabled selected="selected">Please Select</option>
+                            </select><br />
+                            <span asp-validation-for="SchoolState" class="text-danger"></span>
                         </div>
                     </div>
-                </div>
+                    <div class="mb-3 row">
+                        <div class="col-sm-3">
+                            <label class="form-label" asp-for="@Model.SchoolLocalGovt"></label>
+                        </div>
+                        <div class="col-sm-7">
+                            <select name="schoolLocalGovt" id="schoolLocalGovt" oninput="GetFunction()" class="form-select form-select-sm nice-select" aria-label=".form-select-sm example" asp-for="@Model.SchoolLocalGovt">
+                                <option disabled selected="selected">Please Select</option>
+                            </select>
+                            <span asp-validation-for="SchoolLocalGovt" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col-sm-3">
+                            <label class="form-label" asp-for="@Model.Email"></label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="schoolEmail" asp-for="@Model.Email" oninput="GetFunction()">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col-sm-3">
+                            <label class="form-label" asp-for="@Model.RelationShip"></label>
+                        </div>
+                        <div class="col-sm-7">
+                            <select  class="form-select form-select-sm nice-select mb-3" aria-label=".form-select-sm example" id="relationship" oninput="GetFunction()" asp-for="@Model.RelationShip">
+                                <option disabled selected="selected">Please select</option>
+                                <option value="Prinicipal_Administrator">Principal/Administrator</option>
+                                <option value="Teacher">Teacher</option>
+                                <option value="School_Support_Staff">School Suport Staff</option>
+                                <option value="Sponsoring_Business">Sponsoring Business</option>
+
+                            </select>
+                            <span asp-validation-for="RelationShip" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col-sm-3">
+                            <label class="form-label" asp-for="@Model.SchoolPhoneno"></label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="schoolPhoneno" asp-for="@Model.SchoolPhoneno">
+                            <span asp-validation-for="SchoolPhoneno" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @*<hr style="background-color:#ffc221" />*@
+                    @*<div class="row mb-3">
+                            <div class="col-sm-7">
+                                <h5 style="color:#ffc221; text-align:center;">Schools Candidates</h5>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="button" class="registerbtn mb-4 btn-sm addMoreCandidates">Add More</button>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="button" class="registerbtn mb-4 btn-sm" id="deleteLastAdded">Delete</button>
+                            </div>
+
+                        </div>*@
+                    <div>
+                    </div>
+                    @*<div id="schoolCandidates" class="mb-5">
+                            <div class="mb-3 row">
+                                <div class="col-sm-4">
+                                    <label class="form-label" asp-for="@Model.SchoolCandidates"></label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input class="form-control" id="schoolCandidates1"  asp-for="@Model.SchoolCandidates" />
+                                    <span asp-validation-for="SchoolCandidates" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>*@
+                    @*<hr style="background-color:#ffc221" />*@
+                    @*<div>
+                        <h5 style="color:#ffc221; text-align:center;margin-bottom:20px"> Candidates Login Information</h5>
+                    </div>
+                    <div class="mb-5 row">
+                        <div class="col-sm-6">
+                            <div class="mb-3 row">
+                                <div class="col-sm-5">
+                                    <label class="form-label">Candidates Login Email(School Email must be different from Candidate Email)</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    <input class="form-control" id="candidateEmail" asp-for="@Model.CandidatesEmail">
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" k>
+                            <div class="mb-3 row">
+                                <div class="col-sm-5">
+                                    <label class="form-label">Candidate Login Password</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    <input class="form-control" type="password" id="candidatePassword" name="candidatePassword">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="mb-3 row">
+                                <div class="col-sm-5">
+                                    <label class="form-label">Confirm Candidates Login Password</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    <input class="form-control" type="password" id="confirmCandidatePassword" name="confirmCandidatePassword">
+                                    <span id="confirmPasswordError" style="display:none" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="mb-3 row">
+                                <div class="col-sm-2">
+                                    <button type="button" id="generateBtn" style="margin-top:15px" class="registerbtn mb-4 btn-sm">Submit</button>
+                                </div>
+                                <div class="col-sm-3" id="loadingError" style="display:none">
+                                    <img src="~/images/loading.gif" style="width:70px; height:70px" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3" id="candidatesLogin" style="display:none;color:#ffc221">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h4 style="color:#ffc221">UserName</h4>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4 style="color:#ffc221" id="loginUsername"></h4>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-sm-3">
+                                <h4 style="color:#ffc221">Password</h4>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4 style="color:#ffc221" id="loginpassword"></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 row" id="generateError" style="display:none">
+                        <div class="col-sm-7">
+                            <h6 class="text-danger" id="error"></h6>
+                        </div>
+                    </div>*@
+                    <hr style="background-color:#ffc221" />
+                    <div class="mb-3 row">
+                        <div class="col-sm-3">
+                            <label class="form-label" asp-for="@Model.VideoPath"></label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="videoPath" style="padding-bottom:40px" asp-for="@Model.VideoPath">
+                            <span asp-validation-for="VideoPath" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col-sm-3">
+                            <label class="form-label" asp-for="@Model.SchoolPassword"></label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="password" asp-for="@Model.SchoolPassword">
+                            <span asp-validation-for="SchoolPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col-sm-3">
+                            <label class="form-label" asp-for="@Model.ConfirmSchoolPassword"></label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input class="form-control" id="ConfirmSchoolPassword" asp-for="@Model.ConfirmSchoolPassword">
+                            <span asp-validation-for="ConfirmSchoolPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" id="submitBtn" class="registerbtn mb-4 btn-sm">Submit</button>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3 row">
-                <div class="col-sm-3">
-                    <label class="form-label" asp-for="@Model.VideoPath"></label>
-                </div>
-                <div class="col-sm-7">
-                    <input class="form-control" id="videoPath" asp-for="@Model.VideoPath">
-                    <span asp-validation-for="VideoPath" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <div class="col-sm-3">
-                    <label class="form-label" asp-for="@Model.SchoolPassword"></label>
-                </div>
-                <div class="col-sm-7">
-                    <input class="form-control" id="password" asp-for="@Model.SchoolPassword">
-                    <span asp-validation-for="SchoolPassword" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <div class="col-sm-3">
-                    <label class="form-label" asp-for="@Model.ConfirmSchoolPassword"></label>
-                </div>
-                <div class="col-sm-7">
-                    <input class="form-control" id="ConfirmSchoolPassword" asp-for="@Model.ConfirmSchoolPassword">
-                    <span asp-validation-for="ConfirmSchoolPassword" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="text-center">
-                <button type="submit" id="submitBtn" class="registerbtn mb-4 btn-sm">Submit</button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script src="~/js/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    //var integrate = 1;
+    //var schoolEmail = "";
+    //var SchoolName = "";
+    //var localGovernment = "";
+    //var relationship = "";
+    //var SchoolState = "";
+    $(document).ready(function () {
+        $("#schoolState").change(function () {
+            var selectedCountry = $("#schoolState option:selected").val();
+            SchoolState = $("#schoolState option:selected").val();
+            console.log(selectedCountry);
+            const values = {
+                enumValue: selectedCountry
+            }
+            $.ajax({
+                type: "Post",
+                url: "/Account/GetStateLocalGovt",
+                data: values,
+                error: function (error) {
+                    if (error) {
+                        console.log(error);
+                    }
+                }
+            }).done(function (data) {
+                console.log(data);
+                console.log(data.model);
+                if (data.model.length == 0) {
+                    $("#schoolLocalGovt").html("<option></option>");
+                }
+                else {
+                    var localgovt = "";
+                    SchoolState = data.enumname;
+                    for (var i = 0; i < data.model.length; i++) {
+                        localgovt += "<option value=" + data.model[i] + ">" + data.model[i] + "</option>";
+                    }
+                    $("#schoolLocalGovt").html("<option>Please Select</option>" + localgovt);
+                }
+            });
+        });
+    });
+    function GetFunction() {
+
+        localGovernment = $("#schoolLocalGovt").val();
+    }
+    //function checkPasswordMatch() {
+    //    if ($("#candidatePassword").val() != $("#confirmCandidatePassword").val()) {
+    //        $("#confirmPasswordError").css("dispay", "block");
+    //        return false;
+    //    }
+    //    else {
+    //        return true;
+    //    }
+    //}
+    //$("#generateBtn").click(function () {
+      
+    //    $("#loadingError").css("display", "block");
+    //    //var SchooUserName = $("#candidateUserName").val();
+    //    var CandidatesPassword = $("#candidatePassword").val();
+    //    var Confirmpassword = $("#confirmCandidatePassword").val();
+    //    var CandidateEmail = $("#candidateEmail").val();
+    //    if (schoolEmail == CandidateEmail) {
+    //        $("#generateError").css("display", "block");
+    //        $("#loadingError").css("display", "none");
+    //        $("#error").text("School Email must be different from Candidate Email");
+    //    }
+    //    else if (schoolEmail == "" || SchoolName == "" || relationship == "" || checkPasswordMatch() == false) {
+    //        $("#generateError").css("display", "block");
+    //        $("#error").text("Please Some Inputs Are Ommited at the Top Please check Your inputs and try again");
+    //    }
+    //    else if (schoolEmail == "") {
+    //        $("#generateError").css("display", "block");
+    //        $("#error").text("The SchoolEmail inputs is needed for Generating Candidates Login, Please Check Your inputs and try again");
+    //    }
+
+    //    else if (SchoolName == "") {
+    //        $("#generateError").css("display", "block");
+    //        $("#error").text("The SchoolName inputs is needed for Generating Candidates Login, Please Check Your inputs and try again");
+    //    }
+    //    else if (relationship == "") {
+    //        $("#generateError").css("display", "block");
+    //        $("#error").text("The Relationship inputs is needed for Generating Candidates Login, Please Check Your inputs and try again");
+    //    }
+
+    //    else if (checkPasswordMatch() == false) {
+    //        console.log(checkPasswordMatch());
+    //        $("#confirmPasswordError").css("display", "none");
+    //        $("#confirmPasswordError").text("Paswords does not match")
+
+    //        //$("#error").text("Passwords does not match");
+    //    }
+    //    else {
+    //        $("#loadingError").css("display", "none");
+    //        $("#error").css("dispay", "none");
+
+    //        const values = {
+    //            "SchoolName": SchoolName,
+    //            "Email": CandidateEmail,
+    //            "Password": CandidatesPassword,
+    //            "ConfirmPassword": Confirmpassword,
+    //            "LocalGovt": localGovernment,
+    //            "RelationShip": relationship,
+    //            "SchoolState": SchoolState
+    //        }
+    //        console.log(values);
+    //            $.ajax({
+    //                type: "Post",
+    //                url: "/Account/GetCandidatesLogin",
+    //                data: values,
+    //                success: function (data, status) {
+    //                    $("#loadingError").css("display", "none");
+    //                    $("#error").css("dispay", "none");
+    //                    console.log(data)
+    //                    if (data != null) {
+    //                        $("#error").css("dispay", "none");
+    //                        $("#loadingError").css("display", "none");
+    //                        $("#candidatesLogin").css("display", "block");
+    //                        $("#loginUsername").text(data.userNames);
+    //                        $("#loginpassword").text(data.password);
+    //                    }
+    //                    else {
+    //                        $("#loadingError").css("display", "none");
+    //                        $("#candidatesLogin").css("display", "none");
+    //                    }
+    //                },
+    //                error: function (error) {
+    //                    if (error) {
+    //                        $("#loadingError").css("display", "none");
+    //                        console.log(error);
+    //                        $("#generateError").css("display", "block");
+    //                        $("#error").text(error.responseJSON.descFription);
+    //                    }
+    //                    else {
+    //                        $("#loadingError").css("display", "none");
+    //                        $("#generateError").css("display", "none");
+    //                    }
+    //                    //if (values.FirstName == "" || values.LastName == "" && error.responseText != "") {
+    //                    //    $("#no-Record").css("display", "block");
+    //                    //    //$("#no-Record").text("Check your inputs and try again ");
+    //                    //    $("#no-Record").html("One of the inputs was ommited, please check and try again <br/> " + error.responseText);
+    //                    //}
+    //                }
+    //            });           
+    //    }
+    //});
+    var buttons = document.getElementsByClassName("addMoreCandidates");
+    $(".addMoreCandidates").click(function () {
+        integrate++;
+        //name="SchoolCandidates' + integrate + '"
+        $("#schoolCandidates").append(
+            '<div class="mb-3 row "id="addedForms' + integrate + '" >\
+                 <div class="col-sm-4">\
+                        <label class="form-label" asp-for="Model.SchoolCandidates">Candidate FullName</label>\
+                 </div>\
+                 <div class="col-sm-6">\
+                        <input class="form-control" id="schoolCandidates' + integrate + '" type="text" data-val="true" name="SchoolCandidates" value\
+                         data-val-required="The Canididates FullName field is required"  />\
+                        <span asp-validation-for="SchoolCandidates" class="text-danger"></span>\
+                </div>\
+                <div class="col-sm-3">\
+                </div >\
+            </div>'
+        );
+    });
+    $("#deleteLastAdded").click(function () {
+        var intergrateMinus = integrate--;
+        $("#addedForms" + intergrateMinus).remove();
+    });
+</script>

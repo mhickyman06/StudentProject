@@ -1,14 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentProject.Models
 {
     public class LocalGovtSchool
     {
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public Guid Id { get; set; }
 
-        public string Name { get; set; }
+        [Required]
+        public string LocalGovernmentName { get; set; }
 
-        public ICollection<SchoolApplicationUser> Schools { get; set; }
+        [Required]
+        public string SchoolName { get; set; }
+
     }
 }
