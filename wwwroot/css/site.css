@@ -41,6 +41,7 @@ a.navbar-brand {
       font-size: 16px;
     }
   }
+
   
   .border-top {
     border-top: 1px solid #e5e5e5;
@@ -79,6 +80,15 @@ a.navbar-brand {
     white-space: nowrap;
     line-height: 60px; /* Vertically center the text there */
   }
+.loginBody {
+    background-image: url(../images/carousel-img4.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+label {
+    font-family: "POPPINS";
+}
 
 .registerdiv {
     width: 80%;
@@ -89,11 +99,11 @@ a.navbar-brand {
 }
 
 .register-form-header {
-    margin-top: 10px;
     padding: 30px 30% 30px 30%;
     background-color: #f1f1f1;
     color: #eca756;
     font-size:17px;
+    width:100%;
 }
 
 .registerbtn {

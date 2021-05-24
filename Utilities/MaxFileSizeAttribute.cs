@@ -1,10 +1,30 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace StudentProject.Models
 {
+    public static class TempDataExtension
+    {
+        public static void Put<T>(this ITempDataDictionary tempData, string Key, T value) where T : class
+        {
+            tempData[Key] = JsonConvert.SerializeObject(value);
+        }
+        public static T Get<T>(this ITempDataDictionary tempData, string Key) where T : class
+        {
+            tempData.TryGetValue(Key, out object o);
+            return o == null ? null : JsonConvert.DeserializeObject<T>((string)o);
+        }
+
+        public static T Peek<T>(this ITempDataDictionary tempData, string Key) where T : class
+        {
+            object o = tempData.Peek(Key);
+            return o == null ? null : JsonConvert.DeserializeObject<T>((string)o);
+        }
+    }
     public class MaxFileSizeAttribute: ValidationAttribute
     {
         private readonly int _maxFileSize;

@@ -1,0 +1,124 @@
+@model EditSpellerViewModel;
+@{
+
+    Layout = "_SchoolPortalLayout";
+
+    ViewData["Title"] = "Edit Speller";
+
+
+    //var VideoPath = "~/content/Videos/" + Model.ExistingVideoPath;
+    var videopath = System.IO.Path.Combine("~/content/Videos/", Model.ExistingVideoPath);
+}
+
+<style>
+    label {
+        font-size: small;
+        font-family: cursive;
+        font-style: italic;
+    }
+</style>
+
+<div class="container-fluid">
+    <div>
+        <h4>Edit Speller</h4>
+    </div>
+    <div class="mt-5">
+        <form id="registerSpeller" asp-action="EditSpeller" asp-controller="School" method="post" enctype="multipart/form-data">
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="@Model.ExistingVideoPath" />
+            <input type="hidden" asp-for="@Model.Id" />
+            <div class="row mb-3">
+                <div class="form-group input-group">
+                    <div class="col-sm-4">
+                        <label asp-for="@Model.FullName"></label><br />
+                    </div>
+                    <div class="col-sm-7">
+                        <input asp-for="@Model.FullName" class="form-control" style="border-bottom-left-radius:0;border-top-left-radius:0" /><br />
+                        <span asp-validation-for="@Model.FullName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="form-group input-group">
+                    <div class="col-sm-4">
+                        <label asp-for="@Model.Gender"></label>
+                    </div>
+                    <div class="col-sm-7">
+                        <select class="form-select form-select-sm nice-select mb-3" aria-label=".form-select-sm example" asp-for="@Model.Gender" asp-items="@Html.GetEnumSelectList<Gender>()">
+                            <option disabled>Please Select</option>
+                        </select><br />
+                        <span asp-validation-for="@Model.Gender" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="form-group input-group">
+                    <div class="col-sm-4">
+                        <label asp-for="@Model.Age"></label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input id="age" asp-for="@Model.Age" class="form-control" style="border-bottom-left-radius:0;border-top-left-radius:0"><br />
+                        <span asp-validation-for="@Model.Age" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="form-group input-group">
+                    <div class="col-sm-4">
+                        <label asp-for="@Model.DateOfBirth"></label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input id="dateofbirth" asp-for="@Model.DateOfBirth" class="form-control" style="border-bottom-left-radius:0;border-top-left-radius:0"><br />
+                        <span asp-validation-for="@Model.DateOfBirth" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="form-group input-group">
+                    <div class="col-sm-4">
+                        <label asp-for="@Model.VideoPath" class="form-label"></label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input asp-for="@Model.VideoPath" class="form-control custom-file-input " />
+                        <label class="control-label custom-file-label ">choose File</label><br />
+                        <span asp-validation-for="@Model.VideoPath" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align:center;margin-bottom:5px;">
+                <video  width="320" height="240" controls autoplay="autoplay"  loop="loop">
+                    <source src="@Url.Content(videopath)" type="video/mp4" />
+                </video>
+            </div>          
+            <div class="row mb-3">
+                <div class="form-group input-group">
+                    <div class="col-sm-4">
+                        <label asp-for="@Model.UpdatedBy"></label>
+                    </div>
+                    <div class="col-sm-7">
+                        <input id="updatedBy" asp-for="@Model.UpdatedBy" class="form-control" style="border-bottom-left-radius:0;border-top-left-radius:0"><br />
+                        <span asp-validation-for="@Model.UpdatedBy" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>           
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary" style="border-radius:15px;border:none">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var filename = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(filename);
+            })
+        })
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

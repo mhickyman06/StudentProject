@@ -42,7 +42,6 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.0",
           "MimeKit": "2.12.0",
           "NETCore.MailKit": "2.0.3",
-          "Sendgrid": "3.0.1",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -512,30 +511,6 @@
           "System.Text.Encodings.Web": "4.5.0"
         }
       },
-      "Microsoft.Bcl/1.1.3": {
-        "dependencies": {
-          "Microsoft.Bcl.Build": "1.0.4"
-        }
-      },
-      "Microsoft.Bcl.Async/1.0.16": {
-        "dependencies": {
-          "Microsoft.Bcl": "1.1.3"
-        },
-        "runtime": {
-          "lib/net45/Microsoft.Threading.Tasks.Extensions.dll": {
-            "assemblyVersion": "1.0.12.0",
-            "fileVersion": "1.0.16.0"
-          },
-          "lib/net45/Microsoft.Threading.Tasks.dll": {
-            "assemblyVersion": "1.0.12.0",
-            "fileVersion": "1.0.16.0"
-          }
-        },
-        "compile": {
-          "lib/net45/Microsoft.Threading.Tasks.Extensions.dll": {},
-          "lib/net45/Microsoft.Threading.Tasks.dll": {}
-        }
-      },
       "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
         "runtime": {
           "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
@@ -547,7 +522,6 @@
           "ref/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {}
         }
       },
-      "Microsoft.Bcl.Build/1.0.4": {},
       "Microsoft.Bcl.HashCode/1.1.1": {
         "runtime": {
           "lib/netcoreapp2.1/Microsoft.Bcl.HashCode.dll": {
@@ -1286,26 +1260,6 @@
           "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.dll": {}
         }
       },
-      "Microsoft.Net.Http/2.2.13": {
-        "dependencies": {
-          "Microsoft.Bcl": "1.1.3",
-          "Microsoft.Bcl.Build": "1.0.4"
-        },
-        "runtime": {
-          "lib/net45/System.Net.Http.Extensions.dll": {
-            "assemblyVersion": "2.2.13.0",
-            "fileVersion": "2.2.13.0"
-          },
-          "lib/net45/System.Net.Http.Primitives.dll": {
-            "assemblyVersion": "4.2.13.0",
-            "fileVersion": "4.2.13.0"
-          }
-        },
-        "compile": {
-          "lib/net45/System.Net.Http.Extensions.dll": {},
-          "lib/net45/System.Net.Http.Primitives.dll": {}
-        }
-      },
       "Microsoft.Net.Http.Headers/2.2.0": {
         "dependencies": {
           "Microsoft.Extensions.Primitives": "3.1.13",
@@ -1652,33 +1606,6 @@
             "assetType": "native",
             "fileVersion": "4.6.25512.1"
           }
-        }
-      },
-      "Sendgrid/3.0.1": {
-        "dependencies": {
-          "Microsoft.Bcl.Async": "1.0.16",
-          "Microsoft.Net.Http": "2.2.13",
-          "SendGrid.SmtpApi": "1.1.3"
-        },
-        "runtime": {
-          "lib/SendGridMail.dll": {
-            "assemblyVersion": "3.0.1.0",
-            "fileVersion": "3.0.1.0"
-          }
-        },
-        "compile": {
-          "lib/SendGridMail.dll": {}
-        }
-      },
-      "SendGrid.SmtpApi/1.1.3": {
-        "runtime": {
-          "lib/net40/SendGrid.SmtpApi.dll": {
-            "assemblyVersion": "1.1.3.0",
-            "fileVersion": "1.1.3.0"
-          }
-        },
-        "compile": {
-          "lib/net40/SendGrid.SmtpApi.dll": {}
         }
       },
       "SQLitePCLRaw.bundle_e_sqlite3/2.0.2": {
@@ -4591,33 +4518,12 @@
       "path": "microsoft.aspnetcore.webutilities/2.2.0",
       "hashPath": "microsoft.aspnetcore.webutilities.2.2.0.nupkg.sha512"
     },
-    "Microsoft.Bcl/1.1.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-NlSh9kk1UyC25O5JJ6vM/omaEirx0Ysep3CMkFNluQbzlIE14eWNa2rHtmFV1NGAsA/OW6MYvuSi7T7aowD2jw==",
-      "path": "microsoft.bcl/1.1.3",
-      "hashPath": "microsoft.bcl.1.1.3.nupkg.sha512"
-    },
-    "Microsoft.Bcl.Async/1.0.16": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-oni7H/dyq0qHhRe07w1LEPLvn5PX1K6z5Pv8Fs69d/s14jd4q4unp3A+kYv2jqd4Naf7o5ziAZPkAX5wNq2jjw==",
-      "path": "microsoft.bcl.async/1.0.16",
-      "hashPath": "microsoft.bcl.async.1.0.16.nupkg.sha512"
-    },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-yuvf07qFWFqtK3P/MRkEKLhn5r2UbSpVueRziSqj0yJQIKFwG1pq9mOayK3zE5qZCTs0CbrwL9M6R8VwqyGy2w==",
       "path": "microsoft.bcl.asyncinterfaces/1.1.1",
       "hashPath": "microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512"
-    },
-    "Microsoft.Bcl.Build/1.0.4": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-y4VTyK0H1QRKi8O6+/od06Jc+eyY9x+6uDdMPAzjbeX5XL05qAce5lyQlMtcMzlQbu0UOQ/czbjsnjM+2Buq1w==",
-      "path": "microsoft.bcl.build/1.0.4",
-      "hashPath": "microsoft.bcl.build.1.0.4.nupkg.sha512"
     },
     "Microsoft.Bcl.HashCode/1.1.1": {
       "type": "package",
@@ -4934,13 +4840,6 @@
       "path": "microsoft.identitymodel.tokens/5.5.0",
       "hashPath": "microsoft.identitymodel.tokens.5.5.0.nupkg.sha512"
     },
-    "Microsoft.Net.Http/2.2.13": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-PQxbxY29Ikm9ibv1ZUqQ3iIFDLV9zsam4FTWe1Rv4ozuVQSgfKi+KiFcv9US5MZrrGgQn+nnApx1MdKEggztYA==",
-      "path": "microsoft.net.http/2.2.13",
-      "hashPath": "microsoft.net.http.2.2.13.nupkg.sha512"
-    },
     "Microsoft.Net.Http.Headers/2.2.0": {
       "type": "package",
       "serviceable": true,
@@ -5220,20 +5119,6 @@
       "sha512": "sha512-YhEdSQUsTx+C8m8Bw7ar5/VesXvCFMItyZF7G1AUY+OM0VPZUOeAVpJ4Wl6fydBGUYZxojTDR3I6Bj/+BPkJNA==",
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
-    },
-    "Sendgrid/3.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-SQuybGAUVyoPv0kuAwGhRuNkyRbmOV/43lpCP2vAiu0+MiBLfrRNIRx0a0qLwoqPXC1xErPUtYgFp1+nE5K0jg==",
-      "path": "sendgrid/3.0.1",
-      "hashPath": "sendgrid.3.0.1.nupkg.sha512"
-    },
-    "SendGrid.SmtpApi/1.1.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-fxBT+8OjK9JGgMNJ91a4xNxU4j52z0ojnKZPLSVe719mm30++paBOrscjIjufe9uTzP6PtOCeZ/NaLAvqx+fBA==",
-      "path": "sendgrid.smtpapi/1.1.3",
-      "hashPath": "sendgrid.smtpapi.1.1.3.nupkg.sha512"
     },
     "SQLitePCLRaw.bundle_e_sqlite3/2.0.2": {
       "type": "package",

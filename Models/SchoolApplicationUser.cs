@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Hosting.Internal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,13 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentProject.Models
-{
-    public enum Gender
-    {
-        Male =0,
-        Female =1
-    }
-    
+{  
     public enum States
     {
        Abia = 0,
@@ -52,55 +47,37 @@ namespace StudentProject.Models
        Yobe = 34,
        Zamfara = 35
     }
-    public class SchoolVideos
+    public class SchoolsApplicationUser : IdentityUser
     {
-        [Key]
-        [ForeignKey("SchoolApplicationUser")]
-        public string SchoolApplicationUserId { get; set; }
-
-        [Required]
-        public string VideoPath { get; set; }
-
-        public DateTime CreatedAt = DateTime.Now;
-
-        //[ForeignKey("SchoolApplicationUser")]
-        public virtual SchoolApplicationUser schoolApplicationUser { get; set; }
-    }
-    public class SchoolApplicationUser : IdentityUser
-    {
-
-        [Required]
-        [DisplayName("School Name")]
-        public string SchoolName { get; set; }
-
-        [Required]
-        [DisplayName("State Where The School is Located")]
-        public string SchoolState { get; set; }
-
-        [Required]
-        [DisplayName("Local Governemt of Where the School is Located")]
-        public string SchoolLocalGovt { get; set; }
-
-        [Required]
-        [DisplayName("Relationship to School")]
-        public string RelationShip { get; set; }
-
-        //[DisplayName("Schools Candidate")]
-        //[DataType(DataType.MultilineText)]
-        //public string  SchoolCandidates { get; set; }
-
-        //public string VideoPath { get; set; }
-
-
-        //[Required]
-        //public string CandidateLoginUserName { get; set; }
+        [MaxLength(150)]
+        [DefaultValue("")]
+        public string FullName { get; set; }
+        [MaxLength(120)]
+        [DefaultValue("")]
+        public string AccountRole { get; set; }
+        [DefaultValue(false)]
+        public Boolean FirstLogIn { get; set; }
         
-        //[Required]
-        //[DataType(DataType.Password)]
-        //public string CandidateLoginPassword { get; set; }
+        [Required]
+        [DataType(DataType.DateTime)]
+        public string DateCreated { get; set; }
 
-        public virtual SchoolVideos SchoolVideos { get; set; }
-        public virtual ICollection<SchoolCandidates> SchoolCandidates { get; set; }
+       
+
+        [Required]
+        [DefaultValue("")]
+        public string CreatedBy { get; set; }
+
+        [DataType(DataType.DateTime)]
+        public string DateUpdated { get; set; }
+
+        public string UpdatedBy { get; set; }
+
+        [ForeignKey("SchoolTab")]
+        public int? SchoolTabId { get; set; }
+        public SchoolTab SchoolTab { get; set; }
+
+        public  SpellersTab SpellersTab { get; set; }
 
     }
 }

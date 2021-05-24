@@ -17,5 +17,7 @@ namespace StudentProject.ViewModels
 
         [Display(Name = "Remember me")]
         public bool IsPersistent { get; set; }
+
+        public string SessionResponse { get; set; }
     }
 }

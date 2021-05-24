@@ -33,8 +33,29 @@ using StudentProject.ViewModels;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "C:\Users\HI\Documents\StudentProject\Views\_ViewImports.cshtml"
+using Microsoft.AspNetCore.Identity;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\Users\HI\Documents\StudentProject\Views\_ViewImports.cshtml"
+using StudentProject.Models.SeedRoles;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Users\HI\Documents\StudentProject\Views\_ViewImports.cshtml"
+using System.IO;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"285e6fc173f53522a0b72901084b3badf81e8ad4", @"/Views/Administrator/ListAllStudent.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ea836fd9cbc6b806ced4a1ff4ed4c89477d5b6b4", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ac78aafc0166b21636c3e85a20b00350ed09e13e", @"/Views/_ViewImports.cshtml")]
     public class Views_Administrator_ListAllStudent : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

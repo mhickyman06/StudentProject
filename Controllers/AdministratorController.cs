@@ -17,16 +17,16 @@ namespace StudentProject.Controllers
     public class AdministratorController : Controller
     {
         private readonly ILogger<AdministratorController> _logger;
-        private readonly UserManager<SchoolApplicationUser> _userManager;
-        private readonly SignInManager<SchoolApplicationUser> _signInManager;
+        private readonly UserManager<SchoolsApplicationUser> _userManager;
+        private readonly SignInManager<SchoolsApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly SchoolApplicationDbContext context;
+        private readonly ApplicationDbContext context;
 
         public AdministratorController(ILogger<AdministratorController> logger,
-            UserManager<SchoolApplicationUser> userManager,
-            SignInManager<SchoolApplicationUser> signInManager,
+            UserManager<SchoolsApplicationUser> userManager,
+            SignInManager<SchoolsApplicationUser> signInManager,
             RoleManager<IdentityRole> roleManager,
-            SchoolApplicationDbContext context)
+            ApplicationDbContext context)
         {
             this._logger = logger;
             this._userManager = userManager;

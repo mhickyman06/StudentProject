@@ -5,8 +5,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using EmployeeManagementwithdatabase1.Services;
+using StudentProject.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -19,9 +20,13 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using Newtonsoft.Json;
+using SQLitePCL;
 using StudentProject.Data;
 using StudentProject.Models;
+using StudentProject.Models.SeedRoles;
+using StudentProject.Repositories;
 using StudentProject.ViewModels;
+using System.Reflection.Metadata;
 
 namespace StudentProject.Controllers
 {
@@ -29,43 +34,26 @@ namespace StudentProject.Controllers
     {
         public int enumValue { get; set; }
     }
-    
-    
 
-    public static class TempDataExtension
-    {
-        public static void Put<T>(this ITempDataDictionary tempData, string Key, T value) where T : class
-        {
-            tempData[Key] = JsonConvert.SerializeObject(value);
-        }
-         public static T Get<T>(this ITempDataDictionary tempData, string Key) where T : class
-        {
-            tempData.TryGetValue(Key, out object o);
-            return o == null ? null : JsonConvert.DeserializeObject<T>((string)o);
-        }
+   
 
-        public static T Peek<T>(this ITempDataDictionary tempData,string Key) where T : class
-        {
-            object o = tempData.Peek(Key);
-            return o == null ? null : JsonConvert.DeserializeObject<T>((string)o);
-        }
-    }
+    [Route("api/[controller]")]
 
     public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
-        private readonly UserManager<SchoolApplicationUser> _userManager;
-        private readonly SignInManager<SchoolApplicationUser> _signInManager;
+        private readonly UserManager<SchoolsApplicationUser> _userManager;
+        private readonly SignInManager<SchoolsApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IFileManagerService _fileservice;
         private readonly IMailService emailsender;
-        private readonly SchoolApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public AccountController(ILogger<AccountController> logger,
-            UserManager<SchoolApplicationUser> userManager,
-            SignInManager<SchoolApplicationUser> signInManager,
+            UserManager<SchoolsApplicationUser> userManager,
+            SignInManager<SchoolsApplicationUser> signInManager,
             RoleManager<IdentityRole> roleManager,
-            SchoolApplicationDbContext context,
+            ApplicationDbContext context,
             IFileManagerService fileservice,
             IMailService _emailsender
         )
@@ -79,10 +67,9 @@ namespace StudentProject.Controllers
             this._context = context;
         }
 
-     
-     
 
         [HttpGet]
+        [Route("RegisterSchool")]
         [AllowAnonymous]
         public IActionResult RegisterSchool()
         {
@@ -90,6 +77,7 @@ namespace StudentProject.Controllers
         }
 
         [HttpPost]
+        [Route("RegisterSchool")]
         [AllowAnonymous]
         public async Task<IActionResult> RegisterSchool(RegisterSchoolViewModel registerViewModel)
         {
@@ -98,68 +86,47 @@ namespace StudentProject.Controllers
              .Count();
             RegisterSchoolViewModel rgs1 = new RegisterSchoolViewModel();
 
-            var candidateslogin = _userManager.FindByEmailAsync(registerViewModel.CandidatesEmail);
+            var candidateslogin = _userManager.FindByEmailAsync(registerViewModel.Email);
 
-            //if (!(ModelState.IsValid) || registeredWithinLocalGovt == 20)
-            //{
-            //    rgs1.RegisterStatus = "The Registration For Schools Under " + registerViewModel.SchoolLocalGovt + " is Closed";
-            //    return RedirectToAction(nameof(CantRegister));
-            //}
-            //if (!(ModelState.IsValid) && registeredWithinLocalGovt == 20)
-            //{
-            //    rgs1.RegisterStatus = "The Registration For Schools Under " + registerViewModel.SchoolLocalGovt + " is Closed";
-            //    return RedirectToAction(nameof(CantRegister));
-            //}
 
-            //if (candidateslogin == null)
-            //{
-            //    registerViewModel.RegisterStatus = "Candidate Login info has not been Generated";
-            //    return View(registerViewModel);
-            //}
-            if(registeredWithinLocalGovt >= 20)
+            if (registeredWithinLocalGovt >= 20)
             {
                 var message = "The Registration For Schools Under " + registerViewModel.SchoolLocalGovt + " is Closed";
-                return RedirectToAction(nameof(CantRegister),message);
+                return RedirectToAction(nameof(CantRegister), message);
             }
 
-
-            if (ModelState.IsValid )
+            if (ModelState.IsValid)
             {
-               
+
                 var enumdisplaystatus = (States)registerViewModel.SchoolState;
                 string enumname = enumdisplaystatus.ToString();
 
 
-                var SchoolVideo = new SchoolVideos()
-                {
-                    VideoPath = await _fileservice.SaveVideo(registerViewModel.VideoPath)
-                };
-
-               
-                var schoolapplicationuser = new SchoolApplicationUser()
+                var schoolTab = new SchoolTab()
                 {
                     SchoolName = registerViewModel.SchoolName,
-                    SchoolState = enumname,
+                    SchoolAddress = registerViewModel.SchoolAddress,
                     SchoolLocalGovt = registerViewModel.SchoolLocalGovt,
-                    RelationShip = registerViewModel.RelationShip,               
-                    Email = registerViewModel.Email,
-                    PhoneNumber = registerViewModel.SchoolPhoneno,
-                    UserName = registerViewModel.Email,
-                    SchoolVideos = SchoolVideo,
+                    SchoolState = enumname,
+                    RelationShip = registerViewModel.RelationShip
                 };
-
                
 
-                var result1 = await _userManager.CreateAsync(schoolapplicationuser, registerViewModel.ConfirmSchoolPassword);
+              
 
-                if (!await _roleManager.RoleExistsAsync("Schools Representatives"))
-                    await _roleManager.CreateAsync(new IdentityRole("Schools Representatives"));
-
-                if (await _roleManager.RoleExistsAsync("Schools Representatives"))
+                var schoolapplicationuser = new SchoolsApplicationUser()
                 {
-                    await _userManager.AddToRoleAsync(schoolapplicationuser, "Schools Representatives");
-                }
+                    FullName = registerViewModel.SchoolName,
+                    AccountRole = ConstantRoles.School,
+                    SchoolTab = schoolTab,
+                    SchoolTabId = schoolTab.Id,
+                    DateCreated = DateTime.Now.ToString(),
+                    CreatedBy = registerViewModel.CreatedBy,
+                    Email = registerViewModel.Email,
+                    UserName = registerViewModel.Email,
+                    PhoneNumber = registerViewModel.SchoolPhoneno,
 
+                };
                 var SchoollocalGovt = new LocalGovtSchool()
                 {
                     LocalGovernmentName = registerViewModel.SchoolLocalGovt,
@@ -169,31 +136,37 @@ namespace StudentProject.Controllers
                 _context.localGovtSchools.Add(SchoollocalGovt);
                 await _context.SaveChangesAsync();
 
+                var result1 = await _userManager.CreateAsync(schoolapplicationuser, registerViewModel.ConfirmSchoolPassword);
+
+
+                if (!await _roleManager.RoleExistsAsync(ConstantRoles.School))
+                    await _roleManager.CreateAsync(new IdentityRole { Name = ConstantRoles.School });
+
+                if (await _roleManager.RoleExistsAsync(ConstantRoles.School))
+                {
+                    await _userManager.AddToRoleAsync(schoolapplicationuser, ConstantRoles.School);
+                }
+
+
                 if (result1.Succeeded)
                 {
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(schoolapplicationuser);
+                    var confirmationLink = Url.Action(nameof(ConfirmEmail),
+                        "Account", new { token, email = schoolapplicationuser.Email }, Request.Scheme);
 
-                    SchoolApplicationUser models = new SchoolApplicationUser
+                    var mailRequest = new MailRequest
                     {
-                        SchoolName = schoolapplicationuser.SchoolName,
-                        SchoolLocalGovt = schoolapplicationuser.SchoolLocalGovt,
-                        SchoolState = schoolapplicationuser.SchoolState,
+                        Body = confirmationLink,
+                        Subject = "Confirmation Link",
+                        ToEmail = schoolapplicationuser.Email
                     };
 
-                   
+                    await emailsender.SendEmailAsync(mailRequest);
 
-                    TempData.Put("Models", models);
-
-                    return RedirectToAction(nameof(GetCandidatesLogin),new { id= schoolapplicationuser.Id});
-
-                    //return RedirectToAction(nameof(GetCandidatesLogin), new
-                    //{
-                    //    //RelationShip = schoolapplicationuser.RelationShip,
-                    //    id = schoolapplicationuser.Id,
-                    //    SchoolName = schoolapplicationuser.SchoolName,
-                    //    SchoolLocalGovt = schoolapplicationuser.SchoolLocalGovt,
-                    //    SchoolState = schoolapplicationuser.SchoolState
-                    //});
-              
+                    TempData.Put("Token", token);
+                    TempData.Put("UserApplicationEmail", schoolapplicationuser.Email);
+                    TempData.Put("Id", schoolapplicationuser.Id);
+                    return RedirectToAction(nameof(SuccessRegistration));
                 }
                 else
                 {
@@ -203,220 +176,67 @@ namespace StudentProject.Controllers
                         _logger.LogError(error.Description);
                         ModelState.AddModelError("", error.Description);
                     }
-                                
                 }
             }
-                               
-           return View(registerViewModel);
-            
+
+            return View(registerViewModel);
         }
-        [HttpGet]
-        public IActionResult GetCandidatesLogin()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetCandidatesLogin(GetCandidateLoginModel model, string id)
-        {          
-            //var registeredWithinLocalGovt = _context.localGovtSchools.Select(x =>
-            //x.LocalGovernmentName == model.LocalGovt);
-
-            if (ModelState.IsValid)
-            {
-                //SchoolApplicationUser schooluser = new SchoolApplicationUser()
-                //{
-                //    Email = model.Email,
-                //    UserName = model.Email,
-                //    SchoolName = SchoolModel.SchoolName,
-                //    RelationShip = "Candidates",
-                //    SchoolLocalGovt = "Lagos",
-                //    SchoolState = "Lagos_mainland"
-                //};
-                var schoolmodel = TempData.Get<SchoolApplicationUser>("Models");
-                SchoolApplicationUser user = new SchoolApplicationUser
-                {
-                    Email = model.Email,
-                    UserName = model.Email,
-                    SchoolName = schoolmodel.SchoolName,
-                    RelationShip = "Candidates",
-                    SchoolLocalGovt = schoolmodel.SchoolLocalGovt,
-                    SchoolState = schoolmodel.SchoolState
-                };
-
-
-                TempData.Put("candidateEmail", user.Email);
-
-                var result = await _userManager.CreateAsync(user, model.ConfirmPassword);
-                if (!await _roleManager.RoleExistsAsync("Candidates"))
-                    await _roleManager.CreateAsync(new IdentityRole("Candidates"));
-
-                if (await _roleManager.RoleExistsAsync("Candidates"))
-                {
-                    await _userManager.AddToRoleAsync(user, "Candidates");
-                }
-
-                if (result.Succeeded)
-                {
-                    //ApplicationUser applicationUser = new ApplicationUser()
-                    //{
-                    //    FirstName = User.Identity.Name
-                    //};
-                    return RedirectToAction(nameof(SchoolCandidate), new
-                    {
-                        id = id,
-                    });
-
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        _logger.LogTrace("Account/Controller");
-                        _logger.LogError(error.Description);
-                        ModelState.AddModelError("", error.Description);
-                        return View(error);
-                    }
-                }
-            }
-            return View(model);
-        }
+       
 
         [HttpGet]
-        public IActionResult SchoolCandidate()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> SchoolCandidate(SchoolCandidatesModel model, string id)
-        {
-            var candidateEmail = TempData.Get<string>("candidateEmail");
-             var canddidates =  await _userManager.FindByEmailAsync(candidateEmail);
-            SchoolApplicationUser user = await _userManager.FindByIdAsync(id);
-
-            var candidatesnumber = model.SchoolCandidates.Count;
-            var schoolcandidates = new List<SchoolCandidates>();
-
-            if (ModelState.IsValid)
-            {
-
-
-                if (model.SchoolCandidates != null && model.SchoolCandidates.Count > 0)
-                {
-                    for (int i = 0; i < candidatesnumber; i++)
-                    {
-                        SchoolCandidates sc = new SchoolCandidates
-                        {
-                            SchoolId = id,
-                            SchoolCandidate = model.SchoolCandidates.ElementAt(i).ToString(),
-                        };
-
-                        schoolcandidates.Add(sc);
-                                          
-                    }
-
-                    foreach(var item in schoolcandidates)
-                    {
-                       
-                        _context.schoolCandidates.Add(item);
-                        _context.SaveChanges();
-                        _context.Entry<SchoolCandidates>(item).State = EntityState.Detached;
-                    }
-
-
-                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                        var confirmationLink = Url.Action(nameof(ConfirmEmail),
-                            "Account", new {  token, email = user.Email }, null);
-
-
-                        var mailRequest = new MailRequest
-                        {
-                            Body = confirmationLink,
-                            Subject = "Confirmation Link",
-                            ToEmail = user.Email
-                        };
-
-                    await emailsender.SendEmailAsync(mailRequest);
-                    canddidates.EmailConfirmed = true;
-
-                    TempData.Put("Id", user.Id);
-                    return RedirectToAction(nameof(SuccessRegistration));
-                    //if (Options.SignIn.RequireConfirmedAccount == true)
-                    //{
-                    //    await emailsender.SendEmailAsync(mailRequest);
-                    //    canddidates.EmailConfirmed = true;
-                    //    return RedirectToAction(confirmationLink);
-                    //    //return RedirectToPage("RegisterConfirmation", new { email = Input.Email, code, returnUrl = returnUrl });
-                    //}
-                    //else
-                    //{
-                    //    await _signInManager.SignInAsync(user, isPersistent: true);
-                    //    return RedirectToAction("SchoolsPage", "School");
-                    //}
-
-
-                    //if (user.EmailConfirmed == true)
-                    //{
-                    //    canddidates.EmailConfirmed = true;
-                    //}
-
-                    //var result = await _userManager.UpdateAsync(canddidates);
-
-
-
-                    //if(result.Succeeded)
-                    //{
-                    //    await _signInManager.SignInAsync(user, isPersistent: false);
-                    //    return RedirectToAction("SchoolsPage", "School");
-                    //}
-
-                    //else
-                    //{
-                    //    foreach (var error in result.Errors)
-                    //    {
-                    //        _logger.LogTrace("Account/Controller");
-                    //        _logger.LogError(error.Description);
-                    //        ModelState.AddModelError("", error.Description);
-                    //        return View();
-                    //    }
-                    //}                                            
-
-                }
-            }
-            return View(model);
-        }
-
-        [HttpGet]
+        [Route("ConfirmEmail")]
         public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
-            var user = await _userManager.FindByEmailAsync(email);
-            if (user == null)
+
+            var SpellersToken = TempData.Get<string>("SpellersToken");
+            var Token = TempData.Get<string>("Token");
+            var UserApplicationEmail = TempData.Get<string>("UserApplicationEmail");
+            var result = new IdentityResult();
+            var user = new SchoolsApplicationUser();
+            //if (spellersEmail != null)
+            //{
+            //    spellersuser = await _userManager.FindByEmailAsync(spellersEmail);
+            //    result = await _spellerlsusermanager.ConfirmEmailAsync(spellersuser, SpellersToken);
+            //}
+
+            if (UserApplicationEmail != null)
+            {
+                user = await _userManager.FindByEmailAsync(UserApplicationEmail);
+                result = await _userManager.ConfirmEmailAsync(user, token);
+            }
+
+            else
             {
                 return View("Error");
             }
-            var result = await _userManager.ConfirmEmailAsync(user, token);
 
-            return View(result.Succeeded ? nameof(ConfirmEmail) : "Error");
+            if(user.AccountRole == ConstantRoles.School)
+            {
+                return View(nameof(ConfirmEmail));
+            }
+            else if(user.AccountRole == ConstantRoles.Spellers)
+            {
+                return RedirectToAction("GetAllSpellers", "School", new { Message = "You Have Succesfully Registered A Speller" });
+            }
+            return View("Error");
         }
 
         [HttpGet]
+        [Route("SuccessRegistration")]
         public IActionResult SuccessRegistration( )
         {
-
-         
             return View();
-
         }
 
         [HttpGet]
+        [Route("Error")]
         public IActionResult Error()
         {
             return View();
         }
 
         [HttpGet]
+        [Route("RegisterAdmin")]
         //[Authorize(Roles ="SuperAdmin")]
         public IActionResult RegisterAdmin()
         {
@@ -426,12 +246,13 @@ namespace StudentProject.Controllers
 
 
         [HttpPost]
+        [Route("RegisterAdmin")]
         [AllowAnonymous]
         public async Task<IActionResult> RegisterAdmin(RegisterAdminViewModel registerViewModel)
         {
             if (ModelState.IsValid)
             {
-                var user = new SchoolApplicationUser()
+                var user = new SchoolsApplicationUser()
                 {
                     //FirstName = registerViewModel.FirstName,
                     //LastName = registerViewModel.LastName,  
@@ -445,18 +266,18 @@ namespace StudentProject.Controllers
 
                 var result = await _userManager.CreateAsync(user, registerViewModel.Password);
 
-                if (!await _roleManager.RoleExistsAsync("Admin"))
-                    await _roleManager.CreateAsync(new IdentityRole("Admin"));
+                if (!await _roleManager.RoleExistsAsync(ConstantRoles.Admin))
+                    await _roleManager.CreateAsync(new IdentityRole { Name = ConstantRoles.Admin });
 
-                if (await _roleManager.RoleExistsAsync("Admin"))
+                if (await _roleManager.RoleExistsAsync(ConstantRoles.Admin))
                 {
-                    await _userManager.AddToRoleAsync(user, "Admin");
+                    await _userManager.AddToRoleAsync(user, ConstantRoles.Admin);
                 }
 
                 if (result.Succeeded)
                 {
 
-                    if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    if (_signInManager.IsSignedIn(User) && User.IsInRole(ConstantRoles.Admin))
                     {
                         return RedirectToAction("ListUsers", "Administrator");
                     }
@@ -480,58 +301,59 @@ namespace StudentProject.Controllers
         }
 
         [HttpGet]
+        [Route("Login")]
         [AllowAnonymous]
-        public IActionResult Login()
+        public IActionResult Login(string Response)
         {
+            _logger.LogInformation(Response);
 
-            return View();
+            LoginViewModel loginView = new LoginViewModel
+            {
+                SessionResponse = Response
+            };
+            _logger.LogInformation(loginView.SessionResponse);
+            return View(loginView);
         }
-        [HttpPost]
+        [HttpPost("Login")]
+        [Route("Login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel, string returnUrl)
-        {
-            
+        {         
             if (ModelState.IsValid)
             {
                 
                 var user = await _userManager.FindByEmailAsync(loginViewModel.UserName);
                 if (user == null)
                 {
-                    return NotFound();
+                    return View(nameof(UserNotFound));
                 }
                 else
                 {
                     var result = await _signInManager.PasswordSignInAsync(loginViewModel.UserName, loginViewModel.Password, loginViewModel.IsPersistent, false);
                     if (result.Succeeded)
                     {
+                        HttpContext.Session.SetString("UserId", user.Id);
+                        HttpContext.Session.SetInt32("SchoolId", user.SchoolTabId.Value);
+                        HttpContext.Session.SetString("SchoolName", user.FullName);
                         if (returnUrl != null && Url.IsLocalUrl(returnUrl))
                         {
                             _logger.LogInformation("User is  Logged in");
                             return RedirectToAction(returnUrl);
                         }
 
-                        if (await _userManager.IsInRoleAsync(user, "Schools Representatives"))
+                        if (await _userManager.IsInRoleAsync(user, "School"))
                         {
-                            await _signInManager.SignInAsync(user, isPersistent: false);
-                            return RedirectToAction("SchoolsPage", "School");
+                            await _signInManager.SignInAsync(user, isPersistent: loginViewModel.IsPersistent);
+                            return RedirectToAction("SchoolsPage","School");
                         }
                         else
                         {
-                            await _signInManager.SignInAsync(user, isPersistent: false);
+                            await _signInManager.SignInAsync(user, isPersistent: loginViewModel.IsPersistent);
                             _logger.LogInformation("User is  Logged in");
                             return RedirectToAction("CandidatePage", "School");
                         }
-
-                        //else
-                        //{
-                        //    _logger.LogInformation("User is  Logged in");
-                        //    return RedirectToAction("Index", "Home");
-                        //}
                     }
-
-                    //_logger.LogTrace(result.Exception.StackTrace);
-                    //_logger.LogError(result.Exception.Message);
-                    ModelState.AddModelError("", "Invalid Input" /*result.Exception.Message*/);
+                    ModelState.AddModelError("", "Invalid Input");
 
                 }
 
@@ -539,6 +361,7 @@ namespace StudentProject.Controllers
             return View(loginViewModel);
         }
         [HttpPost]
+        [Route("Logout")]
         [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
@@ -548,32 +371,9 @@ namespace StudentProject.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-       [HttpPost]
-       [AllowAnonymous]
-
-       public IActionResult GetStateLocalGovt( int? enumValue)
-        {
-           
-            if(enumValue == null)
-            {
-                return NotFound();
-            }
-            var enumdisplaystatus = (States)enumValue;
-            string enumname = enumdisplaystatus.ToString();
-
-            List<string> Model = new List<string>();
-            StatesLocalGovt stl = new StatesLocalGovt();
-
-            for (int i = 0; i < StatesLocalGovt.allstateslocalgovt.Count(); i++)
-            {
-                if (enumValue == i)
-                {
-                    Model = StatesLocalGovt.allstateslocalgovt.ElementAt(i);
-                }
-            }
-            return Ok(new {Model,enumname,enumValue});
-        }
+     
         [HttpGet]
+        [Route("CantRegister")]
         [AllowAnonymous]
         public IActionResult CantRegister(string message)
         {
@@ -584,12 +384,14 @@ namespace StudentProject.Controllers
       
 
         [HttpGet]
+        [Route("UserNotFound")]
         public IActionResult UserNotFound()
         {
             return View();
         }
 
         [AllowAnonymous]
+        [Route("IsEmailInUsed")]
         [AcceptVerbs("Get", "Post")]
         public async Task<IActionResult> IsEmailInUsed(string Email)
         {
@@ -606,5 +408,31 @@ namespace StudentProject.Controllers
 
             //return Json(result == null , JsonRequestBehavior)
         }
+        [HttpPost("GetStateLocalGovt")]
+        [Route("GetStateLocalGovt")]
+        [AllowAnonymous]
+        public IActionResult GetStateLocalGovt(int? Id)
+        {
+
+            if (Id == null)
+            {
+                return NotFound();
+            }
+            var enumdisplaystatus = (States)Id;
+            string enumname = enumdisplaystatus.ToString();
+
+            List<string> Model = new List<string>();
+            StatesLocalGovt stl = new StatesLocalGovt();
+
+            for (int i = 0; i < StatesLocalGovt.allstateslocalgovt.Count(); i++)
+            {
+                if (Id == i)
+                {
+                    Model = StatesLocalGovt.allstateslocalgovt.ElementAt(i);
+                }
+            }
+            return Ok(new { Model, enumname, Id });
+        }
+       
     }
 }

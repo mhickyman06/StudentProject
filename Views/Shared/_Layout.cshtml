@@ -1,4 +1,4 @@
-﻿@inject Microsoft.AspNetCore.Identity.SignInManager<SchoolApplicationUser> signinmanger;
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<SchoolsApplicationUser> signinmanger;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -105,15 +105,15 @@
 <!--Header Section-->
 <!--moving news-->
 <body class="main-layout">
-    <!-- loader  -->
+     @*loader*@  
     @*<div class="loader_bg">
             <div class="loader"><img src="~/images/loading.gif" alt="#" /></div>
         </div>*@
-    <!-- end loader -->
+     @*end loader*@ 
     <!-- header -->
     <header style="border-bottom:solid 2px #e0d6cc">
         <!-- header inner -->
-        <div class="header" style="padding-bottom:0px">
+        <div class="header" style="padding-bottom:0px;padding-top:0px">
             <div style="background-color:#ffc221">
                 <div class="container">
                     <div class="row">
@@ -165,7 +165,7 @@
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
                         <div class="full">
                             <div class="center-desk">
-                                <h3 style="padding:30px">WordCrusher</h3>
+                                <h1 style="text-align:center;margin-top:20px">Word<span style="color:#ffc221; margin-bottom:30px">Crusher</span></h1>
                             </div>
                         </div>
                     </div>
@@ -201,15 +201,7 @@
             &copy; 2021 - StudentProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/js/popper.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/plugin.js"></script>
-        <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script src="~/js/custom1.js"></script>
-        <script src="~/js/Custom.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>*@
+   
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/popper.min.js"></script>
     <script src="~/js/bootstrap.bundle.min.js"></script>

@@ -1,6 +1,14 @@
-<div style="margin-top:40px; margin-bottom:40px" >
-    <h1 class="text-center" >ConfirmEmail</h1>
+
+@{
+    ViewData["Title"] = "Confirm Email";
+    Layout = "_Layout";
+}
+
+
+
+<div style="margin-top:40px; margin-bottom:40px">
+    <h1 class="text-center">ConfirmEmail</h1>
     <div class="mt-3">
-        <p>Thank You For confirmng Your Email.</p>
+        <p class="text-center">Thank You For confirmng Your Email. <a asp-action="Login">Click this to Login</a></p>
     </div>
 </div>
