@@ -11,5 +11,7 @@ namespace StudentProject.ViewModels
 
         public IEnumerable<SpellersVideos> SpellersVideos { get; set; }
 
+        public IEnumerable<SpellersImg> SpellersImgs { get; set; }
+
     }
 }

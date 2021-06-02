@@ -27,6 +27,13 @@ using StudentProject.Models.SeedRoles;
 using StudentProject.Repositories;
 using StudentProject.ViewModels;
 using System.Reflection.Metadata;
+using System.Net.Http;
+using System.Net;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
+using System.Text;
 
 namespace StudentProject.Controllers
 {
@@ -47,6 +54,7 @@ namespace StudentProject.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IFileManagerService _fileservice;
         private readonly IMailService emailsender;
+        private readonly IConfiguration configuration;
         private readonly ApplicationDbContext _context;
 
         public AccountController(ILogger<AccountController> logger,
@@ -55,7 +63,8 @@ namespace StudentProject.Controllers
             RoleManager<IdentityRole> roleManager,
             ApplicationDbContext context,
             IFileManagerService fileservice,
-            IMailService _emailsender
+            IMailService _emailsender,
+            IConfiguration configuration
         )
         {
             this._logger = logger;
@@ -64,6 +73,7 @@ namespace StudentProject.Controllers
             this._roleManager = roleManager;
             this._fileservice = fileservice;
             emailsender = _emailsender;
+            this.configuration = configuration;
             this._context = context;
         }
 
@@ -81,6 +91,7 @@ namespace StudentProject.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> RegisterSchool(RegisterSchoolViewModel registerViewModel)
         {
+         
             var registeredWithinLocalGovt = _context.localGovtSchools.Select(x =>
                x.LocalGovernmentName == registerViewModel.SchoolLocalGovt)
              .Count();
@@ -329,6 +340,7 @@ namespace StudentProject.Controllers
                 }
                 else
                 {
+                   
                     var result = await _signInManager.PasswordSignInAsync(loginViewModel.UserName, loginViewModel.Password, loginViewModel.IsPersistent, false);
                     if (result.Succeeded)
                     {
@@ -343,11 +355,13 @@ namespace StudentProject.Controllers
 
                         if (await _userManager.IsInRoleAsync(user, "School"))
                         {
+                           
                             await _signInManager.SignInAsync(user, isPersistent: loginViewModel.IsPersistent);
-                            return RedirectToAction("SchoolsPage","School");
+                            return RedirectToAction("SchoolsPage", "School");
                         }
                         else
                         {
+                           
                             await _signInManager.SignInAsync(user, isPersistent: loginViewModel.IsPersistent);
                             _logger.LogInformation("User is  Logged in");
                             return RedirectToAction("CandidatePage", "School");

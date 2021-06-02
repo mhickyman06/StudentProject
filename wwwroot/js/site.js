@@ -10,3 +10,11 @@ $(".navbar-toggler").on('click',function(){
     
     $(".custom-nav-div").css("margin-left","0")
 });
+
+$(document).ready(function () {
+    $(".landing-text").animate({
+        right: '20px',
+    }, "slow");
+});
+
+

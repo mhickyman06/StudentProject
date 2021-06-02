@@ -1,45 +1,332 @@
-﻿@{
+﻿@model ListSpellersViewModel;
+@{
     ViewData["Title"] = "Home Page";
     Layout = "_Layout";
 }
 
-   
-        <div class="sliding-news">
-            <marquee behavior="" direction="">
-                <h6 style="color:#ffc221;padding-top:5px">
-                    Hello world hello world hello world hello worldhello world hello world hello world hello world hello world hello world hello world hello world hello world
-                    hello world hello world hello world
-                </h6>
-            </marquee>
+<style>
+    .learn-more {
+        background-color: aliceblue;
+    }
+
+        .learn-more:hover {
+            background-color: springgreen;
+        }
+
+    .adds-div {
+        height: 70%;
+    }
+
+    .broadcast-div {
+        position: relative;
+        height: 250px;
+        top: 150px;
+        left: 10px;
+    }
+    
+        .broadcast-div p:nth-child(1){
+        font-size: x-large;
+        color: black;
+        }
+        .broadcast-div p:nth-child(2) {
+            font-size:small;
+            color: black;
+            font-style:italic;
+        }
+
+    .divide {
+        position: absolute;
+        height: 100px;
+        width: inherit;
+        border-color: aqua;
+        transform: skew(30deg);
+    }
+
+    .divider {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        height: 100%;
+        border-left: 1px solid black;
+    }
+
+    .broadcast-head {
+        margin-bottom: 60px;
+        font-size: 30px;
+        font-family: cursive;
+        color: brown;
+        text-decoration: overline;
+        text-align:center;
+    }
+
+
+
+    .meet-speller {
+        margin-bottom: 50px;
+        background-color: #823a9c;
+    }
+
+    .section1 {
+        position: relative;
+        background: url(../images/registerpic.jpg);
+        background-size: cover;
+        height: 200px;
+        border-radius: 5px;
+        width:90%;
+        margin:auto;
+    }
+    .spellers-img{
+        width:100%;
+        height:120px;
+        border-radius:50%;
+    }
+    svg {
+        position: absolute;
+        bottom: -10px;
+        left: 0px;
+        width: 100%;
+        height: 100px;
+        display: block;
+    }
+
+    .broadcast-text {
+        position: absolute;
+        top: 120px;
+        left: 150px;
+        transform: rotate( -14deg);
+    }
+    @@media only screen and (max-width:575px){
+
+    }
+</style>
+
+
+<!--moving news-->
+<div class="landing-div">
+</div>
+<div class="landing-text">
+    <h1>Welcome to WordCrusher</h1>
+    <p class="mt-3  mb-5" id="welcome-text" style="line-height:inherit">
+        Our Platform allows spellers vying for the championship Trophy, From accross
+        Nigeria to show off their <strong>Word Mastery</strong> <a class="btn btn-sm learn-more" asp-action="Learnmore" asp-controller="Home">Learn More</a>
+    </p>
+</div>
+
+<section class="broadcast-schedule mt-5 mb-4">
+    <h6 class="broadcast-head">Broadcast Schedule</h6>
+    <div class="row">
+        <div class="col-sm-4 mb-4">
+            <section class="section1">
+                @*<svg width="100%" height="100" viewBox="0 0 100 102" preserveAspectRatio="none" style="bottom: 10px;  top: 102px;">
+                    <path d="M100 0 L50 40 L100 0 V100 H0" fill="beige">
+
+                    </path>
+                </svg>*@
+                <svg width="100%" height="100" viewBox="0 0 100 102" preserveAspectRatio="none">
+                    <path d="M0 0 L50 40 L100 0 V100 H0" fill="beige" />
+                </svg>
+                <div class="broadcast-div">
+                    <p>Preliminaries</p>
+                    @{
+                        var todaysdate = DateTime.Now;
+                        <p>
+                            @todaysdate
+                        </p>
+                    }
+                </div>
+
+            </section>
         </div>
-        <!--moving news-->
-        <!-- carousel section-->
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="~/images/carousel-img1.jpg" style="height:400px" class="d-block w-100" alt="...">
+        <div class="col-sm-4 mb-4">
+            <section class="section1">
+                @*<svg width="100%" height="100" viewBox="0 0 100 102" preserveAspectRatio="none" style="bottom: 10px;  top: 102px;">
+            <path d="M100 0 L50 40 L100 0 V100 H0" fill="beige">
+
+            </path>
+        </svg>*@
+                <svg width="100%" height="100" viewBox="0 0 100 102" preserveAspectRatio="none">
+                    <path d="M0 0 L50 40 L100 0 V100 H0" fill="beige" />
+                </svg>
+                <div class="broadcast-div">
+                    <p>Quarterfinals</p>
+                    @{
+                        var todaysdate1= DateTime.Now;
+                        <p>
+                            @todaysdate1
+                        </p>
+                    }
                 </div>
-                <div class="carousel-item">
-                    <img src="~/Images/carousel-img2.jpg" style="height:400px" class="d-block w-100" alt="...">
+            </section>
+        </div>
+        <div class="col-sm-4 mb-4">
+            <section class="section1">
+                @*<svg width="100%" height="100" viewBox="0 0 100 102" preserveAspectRatio="none" style="bottom: 10px;  top: 102px;">
+                <path d="M100 0 L50 40 L100 0 V100 H0" fill="beige">
+
+                </path>
+            </svg>*@
+                <svg width="100%" height="100" viewBox="0 0 100 102" preserveAspectRatio="none">
+                    <path d="M0 0 L50 40 L100 0 V100 H0" fill="beige" />
+                </svg>
+                <div class="broadcast-div">
+                    <p>Semifinals</p>
+                    @{
+                        var todaysdate2= DateTime.Now;
+                        <p>
+                            @todaysdate2
+                        </p>
+                    }
                 </div>
-                <div class="carousel-item">
-                    <img src="~/Images/carousel-img3.jpg" style="height:400px" class="d-block w-100" alt="...">
+
+            </section>
+        </div>
+        <div class="col-sm-4 " style="margin:auto;">
+            <section class="section1">
+                @*<svg width="100%" height="100" viewBox="0 0 100 102" preserveAspectRatio="none" style="bottom: 10px;  top: 102px;">
+                <path d="M100 0 L50 40 L100 0 V100 H0" fill="beige">
+
+                </path>
+            </svg>*@
+                <svg width="100%" height="100" viewBox="0 0 100 102" preserveAspectRatio="none">
+                    <path d="M0 0 L50 40 L100 0 V100 H0" fill="beige" />
+                </svg>
+                <div class="broadcast-div">
+                    <p>Finals</p>
+                    @{
+                        var todaysdate3= DateTime.Now;
+                        <p>
+                            @todaysdate3
+                        </p>
+                    }
                 </div>
-                <div class="carousel-item">
-                    <img src="~/Images/carousel-img4.jpg" style="height:400px" class="d-block w-100" alt="...">
-                </div>
+
+            </section>
+        </div>
+    </div>  
+   
+</section>
+@*<div class="skew-c">
+
+</div>*@
+
+
+<section class="meet-speller mt-4 ">
+    <h1 class="meet-speller-head">
+        Meet the Spellers
+    </h1>
+    @*<div class="">*@
+<div id="carouselExampleControls" class="carousel slide container" data-interval="false">
+
+    <div class="row " style="margin-left:60px">
+        @for (int i = 0; i <= Model.Spellers.Count() / 6; i++)
+        {
+
+            @foreach (var spellers in Model.Spellers.Skip(i * 6).Take(6))
+            {
+                if (i == 0)
+                {
+                    var spellerimages = Model.SpellersImgs.FirstOrDefault(x => x.SpellersId == spellers.SpellersId);
+                    var imagepath = System.IO.Path.Combine("~/content/Images/", spellerimages.ImagePath);
+                    <div class="col-lg-2 col-md-3 col-sm-6 col-6">
+                        <div class="carousel-item active" style="width:120px">
+                            <div class="mb-3">
+                                <img class="spellers-img mb-4 text-center" src="@Url.Content(imagepath)" /><br />
+                                <p class="text-center">@spellers.FullName</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    var spellerimages = Model.SpellersImgs.FirstOrDefault(x => x.SpellersId == spellers.SpellersId);
+                    var imagepath = System.IO.Path.Combine("~/content/Images/", spellerimages.ImagePath);
+                    <div class="col-lg-2 col-md-3 col-sm-6 col-6">
+                        <div class="carousel-item " style="width:120px">
+                            <div class="mb-3">
+                                <img class="spellers-img mb-4 text-center" src="@Url.Content(imagepath)" /><br />
+                                <p class="text-center">@spellers.FullName</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        }
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+    @*<div id="carouselExampleControls" class="carousel slide" data-interval="false">
+            <div class="row">
+                @foreach (var spellers in Model.Spellers)
+                {
+
+                    var spellerimages = Model.SpellersImgs.FirstOrDefault(x => x.SpellersId == spellers.SpellersId);
+                    var imagepath = System.IO.Path.Combine("~/content/Images/", spellerimages.ImagePath);
+                    <div class="carousel-item active col-sm-3">
+                        <img class="spellers-img mb-4 text-center" src="@Url.Content(imagepath)" /><br />
+                        <div>
+                            <p>@spellers.FullName</p>
+                        </div>
+                    </div>
+                }
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-        <div class="text-center" style="margin-top:30px;margin-bottom:30px">
-            <h1 class="display-4">Welcome</h1>
-            <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-        </div>
-   
+
+            @for (int i = 0; i <= Model.Count() / 4; i++)
+            {
+                <div class="carousel-inner">
+
+                    <div class="carousel-item @if (i == 0) { <text>active</text>}">
+                        @foreach (var spellers in Model.Skip(1 * 4).Take(4))
+                        {
+
+                            var imagepath = System.IO.Path.Combine("~/content/Videos/", spellers.SpellersImg.ImagePath);
+                            <div class="carousel-item active">
+                                <img class="spellers-img mb-4 text-center" src="@Url.Content(imagepath)" /><br />
+                                <div>
+                                    <p>@spellers.FullName</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>*@
+    @*<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>*@
+    @*</div>
+        </div>*@
+
+
+
+    @*<p>
+            slmlmlfl  slmlmlfl slmlmlfl slmlmlfl  slmlmlfl slmlmlfl  slmlmlfl  slmlmlfl slmlmlfl  slmlmlfl
+            slmlmlfl  slmlmlfl slmlmlfl slmlmlfl  slmlmlfl slmlmlfl  slmlmlfl  slmlmlfl slmlmlfl  slmlmlfl
+            slmlmlfl  slmlmlfl slmlmlfl slmlmlfl  slmlmlfl slmlmlfl  slmlmlfl  slmlmlfl slmlmlfl  slmlmlfl
+            slmlmlfl  slmlmlfl slmlmlfl slmlmlfl  slmlmlfl slmlmlfl  slmlmlfl  slmlmlfl slmlmlfl  slmlmlfl
+        </p>*@
+</section>
+
+
+
+@section Scripts {
+    <script>
+       
+    </script>
+}

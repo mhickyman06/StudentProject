@@ -192,8 +192,11 @@ C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\Razor\Views\Account
 C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_SchoolPortalLayout.cshtml.g.cs
 C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LoginRegisterLayout.cshtml.g.cs
 C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\Razor\Views\School\GetAllSpellers.cshtml.g.cs
-C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\Razor\Views\School\RegisterSpeller.cshtml.g.cs
 C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\StudentProject.csproj.AssemblyReference.cache
 C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\StudentProject.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\scopedcss\bundle\StudentProject.styles.css
 C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\Razor\Views\School\EditSpeller.cshtml.g.cs
+C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\Razor\Views\School\RegisterSpeller.cshtml.g.cs
+C:\Users\HI\Documents\StudentProject\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\StudentProject.csprojAssemblyReference.cache
+C:\Users\HI\Documents\StudentProject\obj\Debug\netcoreapp3.1\staticwebassets\StudentProject.StaticWebAssets.xml

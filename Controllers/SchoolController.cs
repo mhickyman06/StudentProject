@@ -21,6 +21,7 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 using SQLitePCL;
 using System.Diagnostics.Eventing.Reader;
+using Microsoft.Extensions.Primitives;
 
 namespace StudentProject.Controllers
 {
@@ -101,6 +102,7 @@ namespace StudentProject.Controllers
                 }
                 model.Spellers = _context.SpellersTabs.ToList().Where(x => x.SchoolId == SchoolId);
                 model.SpellersVideos = _context.SpellersVideos.ToList().Where(x => x.SchoolId == SchoolId);
+                model.SpellersImgs = _context.SpellersImgs.ToList().Where(x => x.SchoolId == SchoolId);
                 //spellers = _context.SpellersVideos.ToList().Where(x=>x.s)
             }
             
@@ -146,6 +148,14 @@ namespace StudentProject.Controllers
                     VideoPath = await fileService.SaveVideo(registerSpellerViewModel.VideoPath)
                 };
 
+                SpellersImg spellersimage = new SpellersImg()
+                {
+                    SchoolId = schoolid,
+                    SpellersName = registerSpellerViewModel.FullName,
+                    DateCreated = DateTime.Now.ToString(),
+                    ImagePath = await fileService.SaveImage(registerSpellerViewModel.ImagePath)
+                };
+
                 var SpellersTab = new SpellersTab()
                 {
                     FullName = registerSpellerViewModel.FullName,
@@ -153,7 +163,15 @@ namespace StudentProject.Controllers
                     Age = registerSpellerViewModel.Age,
                     Gender = enumname,
                     DateOfBirth = registerSpellerViewModel.DateOfBirth,
+                    Class = registerSpellerViewModel.Class,
+                    FavouriteFood = registerSpellerViewModel.FavouriteFood,
+                    FavouriteSport = registerSpellerViewModel.FavouriteSport,
+                    FavouritesAuthor = registerSpellerViewModel.FavouritesAuthor,
+                    FavouriteTvShow = registerSpellerViewModel.FavouriteTvShow,
+                    Musician = registerSpellerViewModel.Musician,
+                    ShortBio = registerSpellerViewModel.ShortBio,
                     SpellersVideos = spellersVideos,
+                    SpellersImg = spellersimage,
                     SchoolId = schoolid,
                     Email = registerSpellerViewModel.Email,
                     CreatedBy = registerSpellerViewModel.CreatedBy,
@@ -224,9 +242,13 @@ namespace StudentProject.Controllers
         [Route("EditSpeller")]
         public async Task<IActionResult> EditSpeller(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
             try
-            {
+            {                             
                var schoolid = HttpContext.Session.GetInt32("SchoolId").Value;
             }
             catch (Exception ex)
@@ -235,19 +257,16 @@ namespace StudentProject.Controllers
                 _logger.LogError(ex.Message);
                 return RedirectToAction("Login", "Account", new { Response = "Your Current Session has expired please login again" });
             }
-
+            
             var user = _context.SpellersTabs.Find(id);
-            var spellerVideo = _context.SpellersVideos.FirstOrDefault(x => x.SpellersId == user.SpellersId);
-            if (id == null)
-            {
-                return NotFound();
-            }          
+
             if (user == null)
             {
                 return NotFound();
             }
-            //var enumdisplaystatus = (Gender)edi.Gender;
-            //string enumname = enumdisplaystatus.ToString();
+            //var spellerImages = user.SpellersImg.ImagePath;
+            var spellerVideo = _context.SpellersVideos.FirstOrDefault(x => x.SpellersId == user.SpellersId);
+            var spellerImages = _context.SpellersImgs.FirstOrDefault(x => x.SpellersId == user.SpellersId);
 
             var Spellers = new EditSpellerViewModel()
             {
@@ -255,7 +274,15 @@ namespace StudentProject.Controllers
                 FullName = user.FullName,
                 Age = user.Age,
                 DateOfBirth = user.DateOfBirth,
-                ExistingVideoPath = spellerVideo.VideoPath,               
+                Class = user.Class,
+                ShortBio = user.ShortBio,
+                FavouriteFood = user.FavouriteFood,
+                FavouritesAuthor = user.FavouritesAuthor,
+                FavouriteSport = user.FavouriteSport,
+                FavouriteTvShow = user.FavouriteTvShow,
+                Musician = user.Musician,
+                ExistingVideoPath = spellerVideo.VideoPath,
+                ExistingImagePath = spellerImages.ImagePath           
             };
             if (user.Gender == "Male")
             {
@@ -286,17 +313,25 @@ namespace StudentProject.Controllers
                     var user = _context.SpellersTabs.FirstOrDefault(x => x.SpellersId == id);
                     SchoolsApplicationUser schooluser = await _userManager.FindByEmailAsync(user.Email);
                     var SpellerVideo = _context.SpellersVideos.FirstOrDefault(x=>x.SpellersId == user.SpellersId);
+                    var spellerImage = _context.SpellersImgs.FirstOrDefault(x => x.SpellersId == user.SpellersId);
                     var enumdisplaystatus = (Gender)editSpellerView.Gender;
                     string enumname = enumdisplaystatus.ToString();
 
                     SpellerVideo.VideoPath = await fileService.UpdateVideo(editSpellerView);
                     SpellerVideo.DateUpdated = DateTime.Now.ToString();
                     SpellerVideo.SpellersName = editSpellerView.FullName;
+                    
+
+                    spellerImage.ImagePath = await fileService.UpdateImg(editSpellerView);
+                    spellerImage.SpellersName = editSpellerView.FullName;
+                    spellerImage.DateUpdated = DateTime.Now.ToString();
+
                     user.FullName = editSpellerView.FullName;
                     user.Age = editSpellerView.Age;
                     user.Gender = enumname;
                     user.DateOfBirth = editSpellerView.DateOfBirth;
                     user.SpellersVideos = SpellerVideo;
+                    user.SpellersImg = spellerImage;
                     user.DateUpdated = DateTime.Now.ToString();
                     user.UpdatedBy = editSpellerView.UpdatedBy;
 
@@ -307,6 +342,7 @@ namespace StudentProject.Controllers
 
                    
                     _context.SpellersVideos.Update(SpellerVideo);
+                    _context.SpellersImgs.Update(spellerImage);
                     await _context.SaveChangesAsync();
                      var result = await _userManager.UpdateAsync(schooluser);
 
@@ -337,9 +373,21 @@ namespace StudentProject.Controllers
                 SpellersTab spelers = _context.SpellersTabs.FirstOrDefault(x=>x.SpellersId == id);
                 SchoolsApplicationUser schooluser = await _userManager.FindByEmailAsync(spelers.Email);
                 var SpellerVideo = _context.SpellersVideos.FirstOrDefault(x => x.SpellersId == id);
+                var spellerimage = _context.SpellersImgs.FirstOrDefault(x => x.SpellersId == id);
+
                 spelers.SpellersVideos = SpellerVideo;
+                spelers.SpellersImg = spellerimage;
                 schooluser.SpellersTab = spelers;
-                fileService.DeleteVideo(SpellerVideo.VideoPath);
+                if(SpellerVideo.VideoPath!= null || SpellerVideo.VideoPath == "Error")
+                {
+                    fileService.DeleteVideo(SpellerVideo.VideoPath);
+    
+                }
+                if( spellerimage.ImagePath != null || SpellerVideo.VideoPath == "Error")
+                {
+                    fileService.DeleteImage(spellerimage.ImagePath);
+    
+                }
                 var result = await _userManager.DeleteAsync(schooluser);
 
                 if (result.Succeeded)

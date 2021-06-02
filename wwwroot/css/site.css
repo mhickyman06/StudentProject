@@ -29,7 +29,8 @@ a.navbar-brand {
     background-color: #1b6ec2;
     border-color: #1861ac;
   }
-  
+
+
   
   /* Sticky footer styles
   -------------------------------------------------- */
@@ -62,6 +63,7 @@ a.navbar-brand {
       margin: 40px  15px 70px 15px;
   }
   
+  
   /* Sticky footer styles
   -------------------------------------------------- */
   html {
@@ -80,35 +82,142 @@ a.navbar-brand {
     white-space: nowrap;
     line-height: 60px; /* Vertically center the text there */
   }
+.header{
+    position:fixed;
+    z-index:999;
+    width:100%;
+}
 .loginBody {
     background-image: url(../images/carousel-img4.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
 }
-label {
-    font-family: "POPPINS";
+.landing-div {
+    width: 100%;
+    height: 600px;
+    /*background-position:right;*/
+    background-image: url(../images/registerpic.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(1px);
+    -webkit-filter:blur(1px);
 }
+.landing-text {
+    position: absolute;
+    top: 200px;
+    /*right: 20px;*/
+    right:1400px;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    font-family: cursive;
+    font-size: x-large;
+}
+.landing-text h1{
+    font-size: xxx-large;
+    font-family:cursive;
+    color:white;
+    text-transform:uppercase;
+}
+.landing-text p {
+    font-size: xx-large;
+    font-family: cursive;
+    color: white;
+}
+@media only screen and (max-width:499px) {
+    .landing-text {
+        top: 300px;
+    }
 
-.registerdiv {
-    width: 80%;
-    height: inherit;
-    border: 2px solid #e0d6cc;
-    border-radius: 10px;
-    font-family: Calibri;
-}
+    .landing-text h1 {
+        font-size: large;
+    }
 
-.register-form-header {
-    padding: 30px 30% 30px 30%;
-    background-color: #f1f1f1;
-    color: #eca756;
-    font-size:17px;
-    width:100%;
+    .landing-text p {
+        font-size: small;
+    }
 }
+    @media only screen and (max-width:500px) {
 
-.registerbtn {
-    background-color: #ffc221;
-}
-  .sliding-news{
-    height: 30px;
-}
+        .landing-text {
+            top: 250px;
+        }
+
+            .landing-text h1 {
+                font-size: x-large;
+            }
+
+            .landing-text p {
+                font-size: large;
+            }
+    }
+
+    /*@media screen and (max-width:499px) {
+        .landing-text h1 {
+            font-size: xx-large
+        }
+
+        .landing-text p {
+            font-size: x-large;
+        }
+    }*/
+
+    label {
+        font-family: "POPPINS";
+    }
+
+
+
+    .img-label {
+        position: relative;
+        bottom: 70px;
+    }
+
+    .meet-speller {
+        background: #823a9c;
+        width: 100%;
+        /*padding: 7% 20% 10% 20%;*/
+        color: #fff;
+        /*height: 400px;*/
+    }
+
+    .meet-speller-head {
+        font-family:cursive;
+        margin-top: 120px;
+        text-align: center;
+        font-size: xx-large;
+        color: #ffc221;
+    }
+
+    .registerdiv {
+        width: 80%;
+        height: inherit;
+        border: 2px solid #e0d6cc;
+        border-radius: 10px;
+        font-family: Calibri;
+    }
+
+    .register-form-header {
+        padding: 30px 30% 30px 30%;
+        background-color: #f1f1f1;
+        color: #eca756;
+        font-size: 17px;
+        width: 100%;
+    }
+
+    .registerbtn {
+        background-color: #ffc221;
+    }
+
+    .sliding-news {
+        height: 30px;
+    }
+
+    .skew-c {
+        width: 100%;
+        height: 120px;
+        position: absolute;
+        left: 0px;
+        background: linear-gradient(to left bottom, #fff 49%, #823A9C 50%);
+    }

@@ -14,8 +14,7 @@ namespace StudentProject.Models
         Male = 0,
         Female = 1
     }
-
-    public class SpellersVideos
+    public class SpellersImg 
     {
         [Key]
         [ForeignKey("SpellersTab")]
@@ -25,7 +24,29 @@ namespace StudentProject.Models
         public string SpellersName { get; set; }
 
         public int SchoolId { get; set; }
-        public string VideoPath { get; set; }
+        public  string ImagePath { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        public string DateCreated { get; set; }
+
+        [DataType(DataType.DateTime)]
+        public string DateUpdated { get; set; }
+
+        public virtual SpellersTab SpellersTab { get; set; }
+
+    }
+
+    public class SpellersVideos
+    {
+        [Key]
+        [ForeignKey("SpellersTab")]
+        public int SpellersId { get; set; }
+        [Required]
+        public string SpellersName { get; set; }
+
+        public int SchoolId { get; set; }
+        public virtual string VideoPath { get; set; }
         [Required]
 
         [DataType(DataType.DateTime)]
@@ -73,14 +94,33 @@ namespace StudentProject.Models
         [Required]
         public string Age { get; set; }
 
+        [Required]
+        public string Class { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
         [DisplayName("Date Of Birth")]
         public string DateOfBirth { get; set; }
 
+        [Required]
+
+        public string ShortBio { get; set; }
+
+        public string FavouritesAuthor { get; set; }
+
+        public string FavouriteSport { get; set; }
+
+        public string FavouriteTvShow { get; set; }
+
+        public string Musician { get; set; }
+
+        public string FavouriteFood { get; set; }
+
         public virtual SpellersVideos SpellersVideos { get; set; }
 
+        public virtual SpellersImg SpellersImg  { get; set; }
+
+        //public virtual SpellersImg SpellersImgs { get; set; }
         //public virtual SchoolsApplicationUser SchoolsApplicationUser { get; set; }
 
     }

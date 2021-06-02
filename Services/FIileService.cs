@@ -20,9 +20,14 @@ namespace StudentProject.Services
         ,ILogger<FileService> Logger)
         {
             _videopath = configuration["Path:Videos"];
+
+            _imagepath = configuration["Path:Images"];
+
             this._Logger=Logger;
         }
         public string _videopath { get; }
+
+        public string _imagepath { get; }
 
         public void DeleteVideo(string videopath)
         {
@@ -102,6 +107,81 @@ namespace StudentProject.Services
                 return filename;
             }
             return editSpeller.ExistingVideoPath;
+        }
+
+        public async Task<string> SaveImage(IFormFile file)
+        {
+            try
+            {
+                var save_path = Path.Combine(_imagepath);
+                if (!Directory.Exists(_imagepath))
+                {
+
+                    Directory.CreateDirectory(save_path);
+                }
+                var guid = Guid.NewGuid();
+                var filename = guid + file.FileName;
+                using (var filestream = new FileStream(Path.Combine(save_path, filename), FileMode.Create))
+                {
+
+                    await file.CopyToAsync(filestream);
+
+                }
+
+                return filename;
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+                return "Error";
+            }
+        }
+
+        public async Task<string> UpdateImg(EditSpellerViewModel edit)
+        {
+            if (edit.ImagePath!= null)
+            {
+                DeleteImage(edit.ExistingImagePath);
+                var filename = await SaveImage(edit.ImagePath);
+                return filename;
+            }
+            return edit.ExistingVideoPath;
+        }
+
+        public void DeleteImage(EditSpellerViewModel editview)
+        {
+            try
+            {
+                var save_path = Path.Combine(_imagepath, editview.ExistingVideoPath);
+                if (Directory.Exists(save_path))
+                {
+                    File.Delete(save_path);
+                    Directory.Delete(save_path);
+                }
+            }
+            catch
+            {
+                _Logger.LogInformation("Error");
+            }
+        }
+
+        public void DeleteImage(string ImagePath)
+        {
+           
+            try
+            {
+                var save_path = Path.Combine(_imagepath, ImagePath);
+               
+                if (System.IO.File.Exists(ImagePath))
+                {
+                    System.IO.File.Delete(ImagePath);
+                }
+
+            }
+            catch
+            {
+                _Logger.LogInformation("Error");
+            }
         }
     }
 }

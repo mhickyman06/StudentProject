@@ -19,6 +19,7 @@ namespace StudentProject.Data
         public DbSet<SpellersVideos> SpellersVideos { get; set; }
         public DbSet<SchoolTab> SchoolTab { get; set; }
         public DbSet<SpellersTab> SpellersTabs { get; set; }
+        public DbSet<SpellersImg> SpellersImgs { get; set; }
         //public DbSet<RoleTab> RoleTab { get; set; }
         public DbSet<SchoolsApplicationUser> SchoolsApplicationUser { get; set; }
 
@@ -33,9 +34,13 @@ namespace StudentProject.Data
                 .HasOne(x => x.SpellersVideos)
                 .WithOne(x => x.SpellersTab);
 
+            modelBuilder.Entity<SpellersTab>()
+                .HasOne(x => x.SpellersImg)
+                .WithOne(x => x.SpellersTab);
+
             //modelBuilder.Entity<SpellersVideos>()
             //    .HasOne(x => x.SpellersTab);
-            
+
 
             modelBuilder.Entity<LocalGovtSchool>()
                 .HasKey(ent => ent.Id);

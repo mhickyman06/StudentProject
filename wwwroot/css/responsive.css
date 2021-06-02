@@ -244,7 +244,7 @@ padding: 1px 0px 1px 0px;
     margin-bottom: 30px;}
 .carousel-item img {
         width: 100%;
-        height: 400px;
+        /*height: 400px;*/
    
 }
 }
@@ -255,7 +255,7 @@ padding: 1px 0px 1px 0px;
         padding-top: 35px;
     }
     .mean-container .mean-bar {
-        margin-top: 0px;
+        margin-top: 10px;
     }
     .relative {
         position: absolute;
@@ -280,7 +280,7 @@ padding: 1px 0px 1px 0px;
     }
     .carousel-item img {
         width: 100%;
-        height: 400px;
+        /*height: 400px;*/
     }
    
      .head_top {
@@ -334,7 +334,7 @@ padding: 1px 0px 1px 0px;
     .banner-main .carousel-caption a {margin-top: 0px;}
     .carousel-item img {
         width: 100%;
-        height: 250px;
+        /*height: 250px;*/
     }
    
     .mean-container .mean-bar {

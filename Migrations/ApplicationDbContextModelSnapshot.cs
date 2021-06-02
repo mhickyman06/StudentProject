@@ -300,6 +300,33 @@ namespace StudentProject.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("StudentProject.Models.SpellersImg", b =>
+                {
+                    b.Property<int>("SpellersId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DateCreated")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DateUpdated")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SchoolId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SpellersName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SpellersId");
+
+                    b.ToTable("SpellersImgs");
+                });
+
             modelBuilder.Entity("StudentProject.Models.SpellersTab", b =>
                 {
                     b.Property<int>("SpellersId")
@@ -308,6 +335,10 @@ namespace StudentProject.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Age")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Class")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -330,6 +361,18 @@ namespace StudentProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FavouriteFood")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FavouriteSport")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FavouriteTvShow")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FavouritesAuthor")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -338,10 +381,17 @@ namespace StudentProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Musician")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("SchoolId")
                         .HasColumnType("int");
 
                     b.Property<string>("SchoolName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortBio")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -440,6 +490,15 @@ namespace StudentProject.Migrations
                     b.HasOne("StudentProject.Models.SpellersTab", "SpellersTab")
                         .WithMany()
                         .HasForeignKey("SpellersTabSpellersId");
+                });
+
+            modelBuilder.Entity("StudentProject.Models.SpellersImg", b =>
+                {
+                    b.HasOne("StudentProject.Models.SpellersTab", "SpellersTab")
+                        .WithOne("SpellersImg")
+                        .HasForeignKey("StudentProject.Models.SpellersImg", "SpellersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("StudentProject.Models.SpellersVideos", b =>

@@ -43,7 +43,7 @@
                             <label asp-for="@Model.SchoolState"></label>
                         </div>
                         <div class="col-sm-7">
-                            <select id="schoolState" class="form-select nice-select form-select-lg" aria-label=".form-select-lg example" asp-for="@Model.SchoolState" asp-items="@Html.GetEnumSelectList<States>()">
+                            <select id="schoolState" class="form-control nice-select form-select-lg" aria-label=".form-select-lg example" asp-for="@Model.SchoolState" asp-items="@Html.GetEnumSelectList<States>()">
                                 <option disabled selected="selected">Please Select</option>
                             </select><br />
                             <span asp-validation-for="@Model.SchoolState" class="text-danger"></span>
@@ -56,7 +56,7 @@
                             <label asp-for="@Model.SchoolLocalGovt"></label>
                         </div>
                         <div class="col-sm-7">
-                            <select name="schoolLocalGovt" id="schoolLocalGovt" class="form-select form-select-sm nice-select" aria-label=".form-select-sm example" asp-for="@Model.SchoolLocalGovt">
+                            <select name="schoolLocalGovt" id="schoolLocalGovt" class="form-control form-select-sm nice-select" aria-label=".form-select-sm example" asp-for="@Model.SchoolLocalGovt">
                                 <option disabled selected="selected">Please Select</option>
                             </select><br />
                             <span asp-validation-for="@Model.SchoolLocalGovt" class="text-danger"></span>
@@ -80,7 +80,7 @@
                             <label asp-for="@Model.RelationShip"></label>
                         </div>
                         <div class="col-sm-7">
-                            <select class="form-select form-select-sm nice-select mb-3" aria-label=".form-select-sm example" id="relationship" asp-for="@Model.RelationShip">
+                            <select class="form-control form-select-sm nice-select mb-3" aria-label=".form-select-sm example" id="relationship" asp-for="@Model.RelationShip">
                                 <option disabled selected="selected">Please select</option>
                                 <option value="Prinicipal_Administrator">Principal/Administrator</option>
                                 <option value="Teacher">Teacher</option>

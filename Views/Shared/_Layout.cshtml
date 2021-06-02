@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
     <style>
-
         .custom-nav-link {
             text-decoration: none;
             margin-left: 20px;
@@ -31,14 +30,14 @@
         }
 
 
-            .custom-nav-link:active {
-                color: #ff6a00;
-            }
+        .custom-nav-link:active {
+            color: #ff6a00;
+        }
 
-            .custom-nav-link:hover {
-                text-decoration: none;
-                color: #ff6a00;
-            }
+        .custom-nav-link:hover {
+            text-decoration: none;
+            color: #ff6a00;
+        }
 
         .nav-item
         .help-icon {
@@ -68,6 +67,16 @@
             padding-right: 50px;
             margin-left: 0px;
         }
+        .footer {
+            padding-top: 50px;
+            padding-bottom: 50px;
+            top: 1300px;
+        }
+
+        .header-adds {
+            width: 100%;
+            height: 60px;
+        }
 
         .sub-nav {
             visibility: hidden;
@@ -79,19 +88,24 @@
             opacity: 3;
         }
 
+        .mean-container .mean-bar {
+            background: #ffc221;
+        }
+
         .site-navigation ul li a {
             line-height: 0;
         }
 
-            .site-navigation ul li a:hover, .site-navigation ul li.current-menu-item a {
-                border-top: 3px solid #ff6a00;
-                color: #ff4800;
-            }
+        .site-navigation ul li a:hover, .site-navigation ul li.current-menu-item a {
+            border-top: 3px solid #ff6a00;
+            color: #ff4800;
+        }
 
         .top-header-bar {
             word-wrap: break-word;
             word-break: break-all;
         }
+
         .top_head_btn {
             background-color: #cebc8f;
             padding: 7px 41px !important;
@@ -99,25 +113,29 @@
             margin-bottom: 5px;
             border-radius: 5px;
         }
+     
     </style>
 
 </head>
 <!--Header Section-->
 <!--moving news-->
 <body class="main-layout">
-     @*loader*@  
+    @*loader*@
     @*<div class="loader_bg">
             <div class="loader"><img src="~/images/loading.gif" alt="#" /></div>
         </div>*@
-     @*end loader*@ 
+    @*end loader*@
     <!-- header -->
     <header style="border-bottom:solid 2px #e0d6cc">
+        @*<div class="header-adds container-fluid" style="padding-bottom:0px;padding-top:0px">
+
+        </div>*@
         <!-- header inner -->
         <div class="header" style="padding-bottom:0px;padding-top:0px">
             <div style="background-color:#ffc221">
                 <div class="container">
                     <div class="row">
-                        <div class="col-xl-9 col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-xl-9 col-lg-6 col-md-6 col-sm-6 ">
                             <div class="top-box">
                                 <ul class="sociel_link">
                                     <li> <a href="#"><img class="tw-i" src="~/lib/fontawesome-free-5.13.0-web/svgs/brands/twitter.svg" /></a></li>
@@ -162,7 +180,7 @@
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section pl-0">
                         <div class="full">
                             <div class="center-desk">
                                 <h1 style="text-align:center;margin-top:20px">Word<span style="color:#ffc221; margin-bottom:30px">Crusher</span></h1>
@@ -185,6 +203,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="sliding-news">
+                    <marquee behavior="" direction="">
+                        <h6 style="color:#ffc221;padding-top:5px">
+                            Hello world hello world hello world hello worldhello world hello world hello world hello world hello world hello world hello world hello world hello world
+                            hello world hello world hello world
+                        </h6>
+                    </marquee>
+                </div>
             </div>
             <!-- end header inner -->
         </div>
@@ -196,12 +222,11 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top  text-muted">
         <div class="container">
             &copy; 2021 - StudentProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-   
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/popper.min.js"></script>
     <script src="~/js/bootstrap.bundle.min.js"></script>
@@ -209,6 +234,7 @@
     <script src="~/js/plugin.js"></script>
     <!-- sidebar -->
     <script src="~/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/js/site.js"></script>
     <script src="~/js/custom1.js"></script>
     <script src="~/js/Custom.js"></script>
     @*<script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>*@
